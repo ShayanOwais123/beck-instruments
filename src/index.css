@@ -1,1 +1,18 @@
 @import "tailwindcss";
+
+:root{
+  --primary:#2563eb;
+  --primary-dark:#1d4ed8;
+
+  --secondary:#0f172a;
+
+  --bg:#f8fafc;
+
+  --card:#ffffff;
+
+  --text:#0f172a;
+
+  --muted:#64748b;
+
+  --border:#e2e8f0;
+}
