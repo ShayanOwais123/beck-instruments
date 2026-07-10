@@ -1,11 +1,11 @@
+import logo2 from "../assets/Brands/logo2.webp";
+import logo1 from "../assets/Brands/logo1.webp";
+import logo3 from "../assets/Brands/logo3.svg";
+import logo4 from "../assets/Brands/logo4.webp";
+import logo5 from "../assets/Brands/logo5.webp";
+
 function TrustedBrands() {
-  const brands = [
-    "Hospital A",
-    "Medical Group",
-    "Dental Care",
-    "Health Plus",
-    "Surgical Pro",
-  ];
+  const brands = [logo1, logo2, logo3, logo4, logo5];
 
   return (
     <section className="py-20 bg-slate-50">
@@ -31,24 +31,28 @@ function TrustedBrands() {
 
         </div>
 
-        {/* Logos */}
+        {/* Logo Slider */}
 
-        <div className="mt-14 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div className="mt-14 overflow-hidden">
 
-          {brands.map((brand) => (
+          <div className="logo-track">
 
-            <div
-              key={brand}
-              className="group flex h-24 items-center justify-center rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-            >
+            {[...brands, ...brands].map((logo, index) => (
 
-              <span className="text-gray-500 font-semibold transition-colors duration-300 group-hover:text-slate-900">
-                {brand}
-              </span>
+              <div
+                key={index}
+                className="logo-item"
+              >
+                <img
+                  src={logo}
+                  alt={`Brand ${index}`}
+                  className="h-14 w-auto object-contain"
+                />
+              </div>
 
-            </div>
+            ))}
 
-          ))}
+          </div>
 
         </div>
 

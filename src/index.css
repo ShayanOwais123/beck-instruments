@@ -16,3 +16,57 @@
 
   --border:#e2e8f0;
 }
+
+
+.logo-track {
+  display: flex;
+  width: max-content;
+  animation: scrollLogos 28s linear infinite;
+  height: 130px;
+  margin-top: 25px;
+}
+
+.logo-track:hover {
+  animation-play-state: paused;
+}
+
+.logo-item {
+  width: 220px;
+  height: 110px;
+  margin: 0 14px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+
+  box-shadow: 0 2px 10px rgba(0,0,0,.04);
+
+  transition: .35s;
+}
+
+.logo-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0,0,6,.08);
+}
+
+.logo-item img {
+  transition: .35s;
+  width: 100px;
+  height: 75px;
+}
+
+
+
+@keyframes scrollLogos {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
