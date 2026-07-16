@@ -1,34 +1,55 @@
-import { useState } from 'react'
-import Navbar from './components/Navbar'
-import Hero from './components/Hero'
-import TrustedBrands from "./components/TrustedBrands";
-import FeaturedCategories from "./components/FeaturedCategories";
-import WhyChoose from './components/WhyChoose'
-import ManufacturingProcess from "./components/ManufacturingProcess";
-import Certification from './components/Certification'
-import Testimonials from './components/Testimonials'
-import CTA from './components/CTA'
-import Footer from './components/Footer'
-import About from './components/About'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./Layout/Layout";
+import Home from "./Pages/Home";
+import About from "./Pages/About";
+import Products from "./Pages/Products/Products";
+import Contact from "./Pages/Contact";
+import Categories from "./Pages/Categories";
+import NotFound from "./Pages/NotFound";
+import Surgical from "./Pages/Products/Surgical";
+import Beauty from "./Pages/Products/Beauty";
+import Veterinary from "./Pages/Products/Veterinary";
+import Laboratory from "./Pages/Products/Laboratory";
+import Dental from "./Pages/Products/Dental";
+import ProductDetails from "./Pages/Products/ProductDetails";
 
 function App() {
- 
-
   return (
-    <>
-    <Navbar />
-    <Hero />
-    <About />
-    <TrustedBrands />
-    <FeaturedCategories />
-    <WhyChoose />
-    <ManufacturingProcess />
-    <Certification />
-    <Testimonials />
-    <CTA />
-    <Footer />
-    </>
-  ) 
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+
+          <Route path="/about" element={<About />} />
+
+          <Route path="/products" element={<Products />} />
+
+          <Route
+            path="/products/:category/:slug"
+            element={<ProductDetails />}
+          />
+
+          <Route path="/contact" element={<Contact />} />
+
+          <Route path="/categories" element={<Categories />} />
+
+          <Route path="/products" element={<Products />} />
+
+          <Route path="/products/surgical" element={<Surgical />} />
+
+          <Route path="/products/dental" element={<Dental />} />
+
+          <Route path="/products/veterinary" element={<Veterinary />} />
+
+          <Route path="/products/beauty" element={<Beauty />} />
+
+          <Route path="/products/laboratory" element={<Laboratory />} />
+        </Route>
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

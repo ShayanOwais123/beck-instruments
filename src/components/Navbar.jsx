@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
 import {
   FiSearch,
   FiShoppingCart,
@@ -66,6 +67,7 @@ function Navbar() {
 
             {/* ================= LOGO ================= */}
 
+            <Link to= '/'>
             <div className="cursor-pointer select-none">
 
               <h1
@@ -81,98 +83,148 @@ function Navbar() {
               </p>
 
             </div>
+            </Link>
 
             {/* ================= DESKTOP MENU ================= */}
 
             <ul className="hidden lg:flex items-center gap-8 text-[15px] font-medium">
 
-              <li className="group cursor-pointer">
-
-                <span>Home</span>
-
-                <div className="h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"></div>
-
-              </li>
+              <li>
+  <NavLink
+    to="/"
+    className={({ isActive }) =>
+      `group flex flex-col ${
+        isActive ? "text-blue-600" : ""
+      }`
+    }
+  >
+    Home
+    <div className="h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"></div>
+  </NavLink>
+</li>
 
               {/* PRODUCTS */}
 
-              <li
-                className="relative"
-                onMouseEnter={() => setIsDropdownOpen(true)}
-                onMouseLeave={() => setIsDropdownOpen(false)}
-              >
+             <li
+  className="relative"
+  onMouseEnter={() => setIsDropdownOpen(true)}
+  onMouseLeave={() => setIsDropdownOpen(false)}
+>
 
-                <button className="flex items-center gap-1 cursor-pointer group">
+  <button className="flex items-center gap-1 cursor-pointer group">
 
-                  Products
+    Products
 
-                  <FiChevronDown
-                    className={`transition duration-300 ${
-                      isDropdownOpen ? "rotate-180" : ""
-                    }`}
-                  />
+    <FiChevronDown
+      className={`transition duration-300 ${
+        isDropdownOpen ? "rotate-180" : ""
+      }`}
+    />
 
-                </button>
+  </button>
 
-                <div className="h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"></div>
+  <div className="h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"></div>
 
-                {isDropdownOpen && (
+  {isDropdownOpen && (
 
-                  <div className="absolute top-full left-0 pt-5 w-72">
+    <div className="absolute top-full left-0 pt-5 w-72">
 
-                    <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 p-6">
+      <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 p-6">
 
-                      <ul className="space-y-5">
+        <ul className="space-y-5">
 
-                        <li className="hover:text-blue-600 transition cursor-pointer">
-                          Surgical Instruments
-                        </li>
+          <li>
+            <Link
+              to="/products/surgical"
+              className="block hover:text-blue-600 transition"
+            >
+              Surgical Instruments
+            </Link>
+          </li>
 
-                        <li className="hover:text-blue-600 transition cursor-pointer">
-                          Dental Instruments
-                        </li>
+          <li>
+            <Link
+              to="/products/dental"
+              className="block hover:text-blue-600 transition"
+            >
+              Dental Instruments
+            </Link>
+          </li>
 
-                        <li className="hover:text-blue-600 transition cursor-pointer">
-                          Veterinary Instruments
-                        </li>
+          <li>
+            <Link
+              to="/products/veterinary"
+              className="block hover:text-blue-600 transition"
+            >
+              Veterinary Instruments
+            </Link>
+          </li>
 
-                        <li className="hover:text-blue-600 transition cursor-pointer">
-                          Beauty Instruments
-                        </li>
+          <li>
+            <Link
+              to="/products/beauty"
+              className="block hover:text-blue-600 transition"
+            >
+              Beauty Instruments
+            </Link>
+          </li>
 
-                      </ul>
+        </ul>
 
-                    </div>
+      </div>
 
-                  </div>
+    </div>
 
-                )}
+  )}
 
-              </li>
+</li>
 
-              <li className="group cursor-pointer">
+{/* categories */}
 
-                <span>Categories</span>
+             <li>
+  <NavLink
+    to="/categories"
+    className={({ isActive }) =>
+      `group flex flex-col ${
+        isActive ? "text-blue-600" : ""
+      }`
+    }
+  >
+    Categories
+    <div className="h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"></div>
+  </NavLink>
+</li>
 
-                <div className="h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"></div>
+{/* about */}
 
-              </li>
+              <li>
+  <NavLink
+    to="/about"
+    className={({ isActive }) =>
+      `group flex flex-col ${
+        isActive ? "text-blue-600" : ""
+      }`
+    }
+  >
+    About Us
+    <div className="h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"></div>
+  </NavLink>
+</li>
 
-              <li className="group cursor-pointer">
-
-                <span>About Us</span>
-
-                <div className="h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"></div>
-
-              </li>
-
-              <li className="group cursor-pointer">
-
-                <span>Contact</span>
-
-                <div className="h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"></div>
-
-              </li>
+{/* contact */}
+             <li>
+  <NavLink
+    to="/contact"
+    className={({ isActive }) =>
+      `group flex flex-col ${
+        isActive ? "text-blue-600" : ""
+      }`
+    }
+  >
+    Contact
+    <div className="h-0.5 w-0 bg-blue-600 transition-all duration-300 group-hover:w-full"></div>
+  </NavLink>
+</li>
 
             </ul>
 
@@ -264,76 +316,120 @@ function Navbar() {
 
         <ul className="flex flex-col px-6 py-8 gap-7 text-lg font-medium">
 
-          <li
-            onClick={() => setIsMenuOpen(false)}
-            className="cursor-pointer hover:text-blue-600 transition"
-          >
-            Home
-          </li>
+        <li>
+  <NavLink
+    to="/"
+    onClick={() => setIsMenuOpen(false)}
+    className={({ isActive }) =>
+      `${isActive ? "text-blue-600" : ""} hover:text-blue-600 transition`
+    }
+  >
+    Home
+  </NavLink>
+</li>
 
           {/* Products Dropdown */}
 
           <li>
 
-            <button
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="flex justify-between items-center w-full cursor-pointer hover:text-blue-600 transition"
-            >
-              Products
+  <button
+    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+    className="flex justify-between items-center w-full cursor-pointer hover:text-blue-600 transition"
+  >
+    Products
 
-              <FiChevronDown
-                className={`transition duration-300 ${
-                  isDropdownOpen ? "rotate-180" : ""
-                }`}
-              />
-            </button>
+    <FiChevronDown
+      className={`transition duration-300 ${
+        isDropdownOpen ? "rotate-180" : ""
+      }`}
+    />
+  </button>
 
-            {isDropdownOpen && (
+  {isDropdownOpen && (
 
-              <ul className="pl-4 pt-4 space-y-4 text-base text-gray-600">
+    <ul className="pl-4 pt-4 space-y-4 text-base text-gray-600">
 
-                <li className="cursor-pointer hover:text-blue-600">
-                  Surgical Instruments
-                </li>
+      <li>
+        <Link
+          to="/products/surgical"
+          onClick={() => setIsMenuOpen(false)}
+          className="block hover:text-blue-600 transition"
+        >
+          Surgical Instruments
+        </Link>
+      </li>
 
-                <li className="cursor-pointer hover:text-blue-600">
-                  Dental Instruments
-                </li>
+      <li>
+        <Link
+          to="/products/dental"
+          onClick={() => setIsMenuOpen(false)}
+          className="block hover:text-blue-600 transition"
+        >
+          Dental Instruments
+        </Link>
+      </li>
 
-                <li className="cursor-pointer hover:text-blue-600">
-                  Veterinary Instruments
-                </li>
+      <li>
+        <Link
+          to="/products/veterinary"
+          onClick={() => setIsMenuOpen(false)}
+          className="block hover:text-blue-600 transition"
+        >
+          Veterinary Instruments
+        </Link>
+      </li>
 
-                <li className="cursor-pointer hover:text-blue-600">
-                  Beauty Instruments
-                </li>
+      <li>
+        <Link
+          to="/products/beauty"
+          onClick={() => setIsMenuOpen(false)}
+          className="block hover:text-blue-600 transition"
+        >
+          Beauty Instruments
+        </Link>
+      </li>
 
-              </ul>
+    </ul>
 
-            )}
+  )}
 
-          </li>
+</li>
 
-          <li
-            onClick={() => setIsMenuOpen(false)}
-            className="cursor-pointer hover:text-blue-600 transition"
-          >
-            Categories
-          </li>
+         <li>
+  <NavLink
+    to="/categories"
+    onClick={() => setIsMenuOpen(false)}
+    className={({ isActive }) =>
+      `${isActive ? "text-blue-600" : ""} hover:text-blue-600 transition`
+    }
+  >
+    Categories
+  </NavLink>
+</li>
 
-          <li
-            onClick={() => setIsMenuOpen(false)}
-            className="cursor-pointer hover:text-blue-600 transition"
-          >
-            About Us
-          </li>
+          <li>
+  <NavLink
+    to="/about"
+    onClick={() => setIsMenuOpen(false)}
+    className={({ isActive }) =>
+      `${isActive ? "text-blue-600" : ""} hover:text-blue-600 transition`
+    }
+  >
+    About Us
+  </NavLink>
+</li>
 
-          <li
-            onClick={() => setIsMenuOpen(false)}
-            className="cursor-pointer hover:text-blue-600 transition"
-          >
-            Contact
-          </li>
+        <li>
+  <NavLink
+    to="/contact"
+    onClick={() => setIsMenuOpen(false)}
+    className={({ isActive }) =>
+      `${isActive ? "text-blue-600" : ""} hover:text-blue-600 transition`
+    }
+  >
+    Contact
+  </NavLink>
+</li>
 
         </ul>
 
