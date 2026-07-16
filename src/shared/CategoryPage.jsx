@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { FiFilter } from "react-icons/fi";
-import allProducts from "../data/products";
+import allProducts from "../Data/products";
 
 function CategoryPage({
   category,
