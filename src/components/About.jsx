@@ -1,109 +1,89 @@
+import { Link } from "react-router-dom";
 import AboutImg from "../assets/About/about1.png";
+import { FiAward, FiShield, FiGlobe, FiCheckCircle } from "react-icons/fi";
+
 function About() {
+  const highlights = [
+    {
+      icon: <FiAward size={20} />,
+      title: "Premium German Stainless Steel",
+    },
+    {
+      icon: <FiShield size={20} />,
+      title: "ISO Certified Manufacturing Standards",
+    },
+    {
+      icon: <FiGlobe size={20} />,
+      title: "Exporting To More Than 50 Countries",
+    },
+    {
+      icon: <FiCheckCircle size={20} />,
+      title: "Lifetime Warranty on All Products",
+    },
+  ];
+
   return (
-    <section className="py-24 bg-white">
-
+    <section className="py-24 bg-[var(--card)]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-
-          {/* Left */}
-
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+          {/* Left - Image */}
           <div className="relative">
-
-            {/* Image Placeholder */}
-
-           <div className="h-130 overflow-hidden rounded-3xl shadow-lg">
-
-  <img
-    src={AboutImg}
-    alt="About Beck Instruments"
-    className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-  />
-
-</div>
-
-            {/* Experience Card */}
-
-            <div className="absolute -bottom-6 -right-6 bg-white rounded-2xl shadow-xl border border-gray-100 px-6 py-5">
-
-              <h2 className="text-3xl font-bold text-blue-600">
-                25+
-              </h2>
-
-              <p className="text-gray-500 text-sm">
-                Years Experience
-              </p>
-
+            <div className="overflow-hidden rounded-[32px] shadow-xl">
+              <img
+                src={AboutImg}
+                alt="About Beck Instruments"
+                className="h-[500px] w-full object-cover transition-transform duration-700 hover:scale-105"
+              />
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[var(--primary)]/20 to-transparent"></div>
             </div>
-
+            {/* Experience Card */}
+            <div className="absolute -bottom-6 -right-6 rounded-2xl border border-[var(--border)] bg-[var(--card)] px-6 py-5 shadow-xl">
+              <p className="text-3xl font-bold text-[var(--accent)]">25+</p>
+              <p className="mt-1 text-sm text-[var(--muted)]">Years Experience</p>
+            </div>
+            {/* Decorative Element */}
+            <div className="absolute -top-4 -left-4 h-24 w-24 rounded-2xl bg-[var(--accent)]/10 -z-10"></div>
           </div>
 
-          {/* Right */}
-
+          {/* Right - Content */}
           <div>
-
-            <span className="uppercase tracking-[4px] text-blue-600 text-sm font-semibold">
+            <p className="inline-block rounded-full border border-[var(--accent)]/20 bg-[var(--accent)]/5 px-5 py-1.5 text-xs font-semibold uppercase tracking-[3px] text-[var(--accent)]">
               About Beck Instruments
-            </span>
-
-            <h2 className="mt-4 text-4xl font-bold text-slate-900 leading-tight">
-
+            </p>
+            <h2 className="mt-5 text-4xl font-bold leading-tight tracking-tight text-[var(--text)]">
               Precision Manufacturing
-
               <br />
-
               Since 1998
-
             </h2>
-
-            <p className="mt-6 text-gray-600 leading-8">
+            <p className="mt-6 leading-relaxed text-[var(--text-secondary)]">
               Beck Instruments is committed to manufacturing premium surgical,
               dental and veterinary instruments using high-quality German
               stainless steel. Our products are trusted by hospitals,
               distributors and healthcare professionals worldwide.
             </p>
 
-                        <div className="mt-8 space-y-4">
-
-              <div className="flex items-center gap-3">
-                <div className="w-2.5 h-2.5 rounded-full bg-blue-600"></div>
-
-                <p className="text-gray-700">
-                  Premium German Stainless Steel
-                </p>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <div className="w-2.5 h-2.5 rounded-full bg-blue-600"></div>
-
-                <p className="text-gray-700">
-                  ISO Certified Manufacturing Standards
-                </p>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <div className="w-2.5 h-2.5 rounded-full bg-blue-600"></div>
-
-                <p className="text-gray-700">
-                  Exporting To More Than 50 Countries
-                </p>
-              </div>
-
+            <div className="mt-8 space-y-4">
+              {highlights.map((item) => (
+                <div key={item.title} className="flex items-center gap-4 group">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--accent)]/10 text-[var(--accent)] transition-all duration-300 group-hover:bg-[var(--accent)] group-hover:text-white">
+                    {item.icon}
+                  </div>
+                  <p className="text-[var(--text-secondary)] group-hover:text-[var(--text)] transition-colors">{item.title}</p>
+                </div>
+              ))}
             </div>
 
-            <button className="mt-10 rounded-xl bg-blue-600 px-6 py-3 text-white font-semibold transition-all duration-300 hover:bg-blue-700 hover:-translate-y-1 hover:shadow-xl">
-
-              Learn More
-
-            </button>
-
+            <Link
+              to="/about"
+              className="mt-10 inline-flex items-center gap-2 rounded-xl bg-[var(--accent)] px-7 py-3.5 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:bg-[var(--accent-dark)] hover:shadow-xl active:scale-95"
+            >
+              Learn More About Us
+              <span className="text-lg">→</span>
+            </Link>
           </div>
-
         </div>
-
       </div>
-
     </section>
   );
 }
