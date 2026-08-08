@@ -12,9 +12,11 @@ import {
   FiPhone,
   FiMail,
   FiArrowRight,
+  FiLogOut,
 } from "react-icons/fi";
 import { useTheme } from "../context/ThemeContext";
 import { useCart } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,6 +28,17 @@ function Navbar() {
 
   const { darkMode, toggleDarkMode } = useTheme();
   const { getCartCount } = useCart();
+  const { currentUser, logout } = useAuth();
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
+
+  async function handleLogout() {
+    try {
+      await logout();
+      setIsAccountOpen(false);
+    } catch (err) {
+      console.error("Failed to log out:", err);
+    }
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -187,9 +200,41 @@ function Navbar() {
                 {darkMode ? <FiSun size={18} /> : <FiMoon size={18} />}
               </button>
 
-              <button className="hidden lg:flex h-10 w-10 items-center justify-center rounded-xl text-[var(--text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/5 transition-all duration-200">
-                <FiUser size={18} />
-              </button>
+              {currentUser ? (
+                <div
+                  className="relative hidden lg:block"
+                  onMouseEnter={() => setIsAccountOpen(true)}
+                  onMouseLeave={() => setIsAccountOpen(false)}
+                >
+                  <button className="flex h-10 w-10 items-center justify-center rounded-xl text-[var(--text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/5 transition-all duration-200">
+                    <FiUser size={18} />
+                  </button>
+
+                  {isAccountOpen && (
+                    <div className="absolute top-full right-0 pt-2 w-56">
+                      <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-2 shadow-2xl">
+                        <div className="px-4 py-3 text-sm text-[var(--text-secondary)] truncate border-b border-[var(--border)] mb-1">
+                          {currentUser.email}
+                        </div>
+                        <button
+                          onClick={handleLogout}
+                          className="flex w-full items-center gap-2 rounded-xl px-4 py-3 text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/5 transition-all duration-200"
+                        >
+                          <FiLogOut size={16} />
+                          Log Out
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  to="/login"
+                  className="hidden lg:flex h-10 w-10 items-center justify-center rounded-xl text-[var(--text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/5 transition-all duration-200"
+                >
+                  <FiUser size={18} />
+                </Link>
+              )}
 
               <Link
                 to="/cart"

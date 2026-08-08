@@ -1,402 +1,111 @@
 import { Link, useParams } from "react-router-dom";
 import { FiMinus, FiPlus, FiShoppingCart } from "react-icons/fi";
 import { useState } from "react";
-
 import allProducts from "../../Data/Products";
 
 function ProductDetails() {
-
   const { category, slug } = useParams();
-
-  const product = allProducts.find(
-    (item) =>
-      item.category === category &&
-      item.slug === slug
-  );
-
+  const product = allProducts.find((item) => item.category === category && item.slug === slug);
   const [quantity, setQuantity] = useState(1);
 
   if (!product) {
-
     return (
-
-      <section className="mt-40 text-center">
-
-        <h1 className="text-4xl font-bold">
-          Product Not Found
-        </h1>
-
+      <section className="min-h-screen bg-[var(--bg)] pt-40 text-center">
+        <div className="max-w-7xl mx-auto px-6">
+          <h1 className="text-4xl font-bold text-[var(--text)]">Product Not Found</h1>
+          <Link to="/products" className="inline-block mt-6 text-[var(--accent)] hover:underline">Back to Products</Link>
+        </div>
       </section>
-
     );
-
   }
 
   return (
-
-    <section className="lg:mt-30 mt-20 bg-slate-50">
-
+    <section className="min-h-screen bg-[var(--bg)] pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-
-        {/* Breadcrumb */}
-
-        <div className="text-sm text-gray-500">
-
-          <Link
-            to="/"
-            className="hover:text-blue-600"
-          >
-            Home
-          </Link>
-
-          <span className="mx-2">/</span>
-
-          <Link
-            to="/products"
-            className="hover:text-blue-600"
-          >
-            Products
-          </Link>
-
-          <span className="mx-2">/</span>
-
-          <Link
-            to={`/products/${product.category}`}
-            className="hover:text-blue-600 capitalize"
-          >
-            {product.category}
-          </Link>
-
-          <span className="mx-2">/</span>
-
-          <span className="text-slate-900 font-medium">
-            {product.name}
-          </span>
-
+        <div className="text-sm text-[var(--muted)] flex flex-wrap items-center gap-1">
+          <Link to="/" className="hover:text-[var(--accent)] transition-colors">Home</Link>
+          <span>/</span>
+          <Link to="/products" className="hover:text-[var(--accent)] transition-colors">Products</Link>
+          <span>/</span>
+          <Link to={"/products/" + product.category} className="hover:text-[var(--accent)] transition-colors capitalize">{product.category}</Link>
+          <span>/</span>
+          <span className="font-medium text-[var(--text)]">{product.name}</span>
         </div>
 
-        {/* Product */}
-
-        <div className="mt-10 grid lg:grid-cols-2 gap-16 items-start">
-
-          {/* Left Image */}
-
-          <div>
-
-            <div className="rounded-3xl bg-white p-8 border border-gray-100 shadow-sm">
-
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-full h-130 object-contain"
-              />
-
+        <div className="mt-10 grid lg:grid-cols-2 gap-12 items-start">
+          <div className="lg:sticky lg:top-28">
+            <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-8 shadow-sm">
+              <img src={product.image} alt={product.name} className="w-full h-[500px] object-contain" />
             </div>
-
           </div>
 
-          {/* Right */}
-
           <div>
-
-            <p className="uppercase tracking-[4px] text-blue-600 font-semibold">
-
-              {product.category}
-
-            </p>
-
-            <h1 className="mt-3 text-4xl font-bold text-slate-900">
-
-              {product.name}
-
-            </h1>
-
-            <p className="mt-6 text-gray-600 leading-8">
-
-              {product.description}
-
-            </p>
-
-            {/* Info */}
+            <p className="uppercase tracking-[4px] text-[var(--accent)] font-semibold text-sm">{product.category}</p>
+            <h1 className="mt-3 text-4xl font-bold text-[var(--text)]">{product.name}</h1>
+            <p className="mt-6 text-[var(--text-secondary)] leading-8">{product.description}</p>
 
             <div className="mt-8 space-y-4">
-
-              <div className="flex justify-between border-b pb-3">
-
-                <span className="font-medium">
-                  Material
-                </span>
-
-                <span>
-                  {product.material}
-                </span>
-
-              </div>
-
-              <div className="flex justify-between border-b pb-3">
-
-                <span className="font-medium">
-                  Finish
-                </span>
-
-                <span>
-                  {product.finish}
-                </span>
-
-              </div>
-
-              <div className="flex justify-between border-b pb-3">
-
-                <span className="font-medium">
-                  Size
-                </span>
-
-                <span>
-                  {product.size}
-                </span>
-
-              </div>
-
-              <div className="flex justify-between border-b pb-3">
-
-                <span className="font-medium">
-                  SKU
-                </span>
-
-                <span>
-                  {product.sku}
-                </span>
-
-              </div>
-
+              {[
+                {label:"Material",value:product.material},
+                {label:"Finish",value:product.finish},
+                {label:"Sizes",value:(product.sizes||[]).join(", ")},
+                {label:"SKU",value:product.sku}
+              ].map(function(obj){return (
+                <div key={obj.label} className="flex justify-between border-b border-[var(--border)] pb-3">
+                  <span className="font-medium text-[var(--text)]">{obj.label}</span>
+                  <span className="text-[var(--text-secondary)]">{obj.value}</span>
+                </div>
+              )})}
             </div>
-
-            {/* Quantity */}
 
             <div className="mt-10">
-
-              <p className="font-semibold mb-4">
-                Quantity
-              </p>
-
-              <div className="flex items-center gap-5">
-
-                <div className="flex items-center border rounded-xl overflow-hidden">
-
-                  <button
-                    onClick={() =>
-                      quantity > 1 &&
-                      setQuantity(quantity - 1)
-                    }
-                    className="px-5 py-3 hover:bg-gray-100"
-                  >
-
-                    <FiMinus />
-
-                  </button>
-
-                  <span className="px-6">
-
-                    {quantity}
-
-                  </span>
-
-                  <button
-                    onClick={() =>
-                      setQuantity(quantity + 1)
-                    }
-                    className="px-5 py-3 hover:bg-gray-100"
-                  >
-
-                    <FiPlus />
-
-                  </button>
-
+              <p className="font-semibold text-[var(--text)] mb-4">Quantity</p>
+              <div className="flex flex-wrap items-center gap-5">
+                <div className="flex items-center border border-[var(--border)] rounded-xl overflow-hidden">
+                  <button onClick={function(){if(quantity>1)setQuantity(quantity-1)}} className="px-5 py-3 text-[var(--text-secondary)] hover:bg-[var(--accent)]/10 transition"><FiMinus /></button>
+                  <span className="px-6 text-[var(--text)] font-medium">{quantity}</span>
+                  <button onClick={function(){setQuantity(quantity+1)}} className="px-5 py-3 text-[var(--text-secondary)] hover:bg-[var(--accent)]/10 transition"><FiPlus /></button>
                 </div>
-                                {/* Buttons */}
-
                 <div className="flex flex-wrap gap-4">
-
-                  <button
-                    className="flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold transition"
-                  >
-
-                    <FiShoppingCart />
-
-                    Add To Cart
-
-                  </button>
-
-                  <button
-                    className="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-4 rounded-xl font-semibold transition"
-                  >
-
-                    Request Quote
-
-                  </button>
-
+                  <button className="flex items-center gap-3 bg-[var(--accent)] hover:bg-[var(--accent)]/90 text-white px-8 py-4 rounded-xl font-semibold transition-all hover:-translate-y-0.5 active:scale-95 shadow-sm"><FiShoppingCart /> Add To Cart</button>
+                  <button className="border-2 border-[var(--accent)] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-white px-8 py-4 rounded-xl font-semibold transition-all hover:-translate-y-0.5 active:scale-95">Request Quote</button>
                 </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        {/* Specifications */}
-
-        <div className="mt-20 rounded-3xl bg-white p-10 border border-gray-100 shadow-sm">
-
-          <h2 className="text-3xl font-bold text-slate-900">
-            Specifications
-          </h2>
-
-          <div className="mt-8 grid md:grid-cols-2 gap-6">
-
-            <div className="flex justify-between border-b pb-4">
-
-              <span className="font-semibold">
-                Material
-              </span>
-
-              <span>
-                {product.material}
-              </span>
-
-            </div>
-
-            <div className="flex justify-between border-b pb-4">
-
-              <span className="font-semibold">
-                Finish
-              </span>
-
-              <span>
-                {product.finish}
-              </span>
-
-            </div>
-
-            <div className="flex justify-between border-b pb-4">
-
-              <span className="font-semibold">
-                Size
-              </span>
-
-              <span>
-                {product.size}
-              </span>
-
-            </div>
-
-            <div className="flex justify-between border-b pb-4">
-
-              <span className="font-semibold">
-                SKU
-              </span>
-
-              <span>
-                {product.sku}
-              </span>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        {/* Features */}
-
-        <div className="mt-16 rounded-3xl bg-white p-10 border border-gray-100 shadow-sm">
-
-          <h2 className="text-3xl font-bold text-slate-900">
-            Features
-          </h2>
-
-          <div className="mt-8 grid md:grid-cols-2 gap-5">
-
-            {product.features.map((feature) => (
-
-              <div
-                key={feature}
-                className="flex items-center gap-3"
-              >
-
-                <div className="w-3 h-3 rounded-full bg-blue-600"></div>
-
-                <span>
-                  {feature}
-                </span>
-
               </div>
+            </div>
 
-            ))}
-
+            <div className="mt-12 rounded-2xl border border-[var(--border)] bg-[var(--card)] p-8 shadow-sm">
+              <h2 className="text-2xl font-bold text-[var(--text)]">Key Features</h2>
+              <div className="mt-6 grid md:grid-cols-2 gap-4">
+                {product.features.map(function(feature){return (
+                  <div key={feature} className="flex items-center gap-3">
+                    <div className="w-2.5 h-2.5 rounded-full bg-[var(--accent)] shrink-0"></div>
+                    <span className="text-[var(--text-secondary)]">{feature}</span>
+                  </div>
+                )})}
+              </div>
+            </div>
           </div>
-
         </div>
-
-        {/* Related Products */}
 
         <div className="mt-20">
-
-          <h2 className="text-3xl font-bold text-slate-900 mb-10">
-            Related Products
-          </h2>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-
-            {allProducts
-              .filter(
-                (item) =>
-                  item.category === product.category &&
-                  item.id !== product.id
-              )
-              .slice(0, 4)
-              .map((item) => (
-
-                <Link
-                  key={item.id}
-                  to={`/products/${item.category}/${item.slug}`}
-                  className="group bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all"
-                >
-
-                  <div className="overflow-hidden">
-
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="h-56 w-full object-cover group-hover:scale-110 transition duration-500"
-                    />
-
-                  </div>
-
-                  <div className="p-5">
-
-                    <p className="text-xs uppercase tracking-[3px] text-blue-600 font-semibold">
-                      {item.material}
-                    </p>
-
-                    <h3 className="mt-3 text-xl font-bold text-slate-900">
-                      {item.name}
-                    </h3>
-
-                  </div>
-
-                </Link>
-
-              ))}
-
+          <h2 className="text-3xl font-bold text-[var(--text)] mb-10">Related Products</h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {allProducts.filter(function(item){return item.category===product.category&&item.id!==product.id}).slice(0,4).map(function(item){return (
+              <Link key={item.id} to={"/products/"+item.category+"/"+item.slug} className="group bg-[var(--card)] rounded-2xl border border-[var(--border)] shadow-sm overflow-hidden hover:shadow-xl hover:-translate-y-2 transition-all">
+                <div className="overflow-hidden">
+                  <img src={item.image} alt={item.name} className="h-56 w-full object-cover group-hover:scale-110 transition duration-500" />
+                </div>
+                <div className="p-5">
+                  <p className="text-xs uppercase tracking-[3px] text-[var(--accent)] font-semibold">{item.material}</p>
+                  <h3 className="mt-3 text-xl font-bold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors">{item.name}</h3>
+                </div>
+              </Link>
+            )})}
           </div>
-
         </div>
-
       </div>
- </div>
     </section>
-
   );
-
 }
-
 export default ProductDetails;
+

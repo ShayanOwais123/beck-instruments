@@ -1,4 +1,8 @@
-import { Link } from "react-router-dom";
+// Fix build errors - writes corrected files
+const fs = require('fs');
+
+// ===== Products.jsx =====
+const productsContent = `import { Link } from "react-router-dom";
 import AnimatedSection from "../../components/AnimatedSection";
 import surgical from "../../assets/Categories/surgical.jpg";
 import dental from "../../assets/Categories/dental.jpg";
@@ -26,23 +30,3 @@ function Products() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {categories.map(function(item,index){return (
             <AnimatedSection key={item.title} delay={index*0.1}>
-              <Link to={item.link} className="group block overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card)] shadow-sm transition-all duration-500 hover:-translate-y-2 hover:border-[var(--accent)]/30 hover:shadow-xl">
-                <div className="overflow-hidden">
-                  <img src={item.image} alt={item.title} className="h-64 w-full object-cover transition duration-700 group-hover:scale-110" />
-                </div>
-                <div className="p-7">
-                  <h2 className="text-2xl font-bold text-[var(--text)] group-hover:text-[var(--accent)] transition-colors">{item.title}</h2>
-                  <p className="mt-4 leading-relaxed text-[var(--text-secondary)]">{item.description}</p>
-                  <div className="mt-7 flex items-center justify-between">
-                    <span className="font-semibold text-[var(--accent)] inline-flex items-center gap-2 transition-all group-hover:gap-3">View Collection<span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span></span>
-                  </div>
-                </div>
-              </Link>
-            </AnimatedSection>
-          )})}
-        </div>
-      </div>
-    </main>
-  );
-}
-export default Products;

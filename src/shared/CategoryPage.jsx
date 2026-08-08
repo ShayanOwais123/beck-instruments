@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { FiFilter } from "react-icons/fi";
 import allProducts from '../Data/Products';
@@ -17,7 +18,7 @@ function CategoryPage({
 
   return (
 
-    <section className="lg:mt-30 mt-20 bg-slate-50">
+<section className="min-h-screen bg-[var(--bg)] pt-32 pb-24">
 
       {/* Banner */}
 
@@ -29,13 +30,13 @@ function CategoryPage({
           className="h-full w-full object-cover"
         />
 
-        <div className="absolute inset-0 bg-slate-900/65"></div>
+<div className="absolute inset-0 bg-[var(--primary)]/70"></div>
 
         <div className="absolute inset-0 flex items-center justify-center">
 
           <div className="text-center text-white px-6">
 
-            <p className="uppercase tracking-[5px] text-blue-300 font-semibold">
+<p className="uppercase tracking-[5px] text-[var(--accent)] font-semibold">
               Premium Collection
             </p>
 
@@ -43,7 +44,7 @@ function CategoryPage({
               {title}
             </h1>
 
-            <p className="mt-5 max-w-2xl mx-auto text-gray-200 leading-7">
+<p className="mt-5 max-w-2xl mx-auto text-white/70 leading-7">
               {description}
             </p>
 
@@ -57,11 +58,11 @@ function CategoryPage({
 
         {/* Breadcrumb */}
 
-        <div className="text-sm text-gray-500">
+<div className="text-sm text-[var(--muted)]">
 
           <Link
             to="/"
-            className="hover:text-blue-600 transition"
+            className="hover:text-[var(--accent)] transition-colors"
           >
             Home
           </Link>
@@ -77,7 +78,7 @@ function CategoryPage({
 
           <span className="mx-2">/</span>
 
-          <span className="font-medium text-slate-900">
+          <span className="font-medium text-[var(--text)]">
             {title}
           </span>
 
@@ -87,15 +88,13 @@ function CategoryPage({
 
           {/* Filters */}
 
-          <aside className="rounded-3xl bg-white p-8 shadow-sm border border-gray-100 h-fit sticky top-28">
+          <aside className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6 shadow-sm h-fit sticky top-28">
 
             <div className="flex items-center gap-3">
 
-              <FiFilter className="text-xl text-blue-600" />
+              <FiFilter className="text-xl text-[var(--accent)]" />
 
-              <h2 className="text-xl font-bold">
-                Filters
-              </h2>
+              <h2 className="text-xl font-bold text-[var(--text)]">Filters</h2>
 
             </div>
 
@@ -103,9 +102,7 @@ function CategoryPage({
 
             <div className="mt-8">
 
-              <h3 className="font-semibold text-slate-900">
-                Category
-              </h3>
+              <h3 className="font-semibold text-[var(--text)]">Category</h3>
 
               <div className="mt-4 space-y-3">
 
@@ -118,7 +115,7 @@ function CategoryPage({
 
                     <input type="checkbox" />
 
-                    <span>{item}</span>
+                    <span className="text-[var(--text-secondary)]">{item}</span>
 
                   </label>
 
@@ -132,9 +129,7 @@ function CategoryPage({
 
             <div className="mt-8">
 
-              <h3 className="font-semibold text-slate-900">
-                Material
-              </h3>
+              <h3 className="font-semibold text-[var(--text)]">Material</h3>
 
               <div className="mt-4 space-y-3">
 
@@ -147,7 +142,7 @@ function CategoryPage({
 
                     <input type="checkbox" />
 
-                    <span>{item}</span>
+                    <span className="text-[var(--text-secondary)]">{item}</span>
 
                   </label>
 
@@ -161,9 +156,7 @@ function CategoryPage({
 
             <div className="mt-8">
 
-              <h3 className="font-semibold text-slate-900">
-                Finish
-              </h3>
+              <h3 className="font-semibold text-[var(--text)]">Finish</h3>
 
               <div className="mt-4 space-y-3">
 
@@ -176,7 +169,7 @@ function CategoryPage({
 
                     <input type="checkbox" />
 
-                    <span>{item}</span>
+                    <span className="text-[var(--text-secondary)]">{item}</span>
 
                   </label>
 
@@ -196,11 +189,11 @@ function CategoryPage({
 
               <div>
 
-                <h2 className="text-3xl font-bold text-slate-900">
+                <h2 className="text-3xl font-bold text-[var(--text)]">
                   {collectionTitle}
                 </h2>
 
-                <p className="mt-2 text-gray-600">
+                <p className="mt-2 text-[var(--text-secondary)]">
                   Showing {products.length} premium instruments
                 </p>
 
@@ -214,7 +207,7 @@ function CategoryPage({
                 <Link
                   key={product.id}
                   to={`/products/${product.category}/${product.slug}`}
-                  className="group overflow-hidden rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
+                  className="group overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card)] shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-[var(--accent)]/30 hover:shadow-xl"
                 >
 
                   <div className="overflow-hidden">
@@ -229,21 +222,21 @@ function CategoryPage({
 
                   <div className="p-6">
 
-                    <p className="text-xs uppercase tracking-[3px] text-blue-600 font-semibold">
+                    <p className="text-xs uppercase tracking-[3px] text-[var(--accent)] font-semibold">
                       {product.material}
                     </p>
 
-                    <h3 className="mt-3 text-2xl font-bold text-slate-900">
+                    <h3 className="mt-3 text-2xl font-bold text-[var(--text)]">
                       {product.name}
                     </h3>
 
-                    <p className="mt-3 text-gray-600 leading-7">
+                    <p className="mt-3 text-[var(--text-secondary)] leading-7">
                       {product.shortDescription}
                     </p>
 
                     <div className="mt-6 flex items-center justify-between">
 
-                      <span className="text-blue-600 font-semibold group-hover:translate-x-1 transition-all">
+                      <span className="text-[var(--accent)] font-semibold group-hover:translate-x-1 transition-all">
                         View Details →
                       </span>
 
@@ -263,11 +256,11 @@ function CategoryPage({
 
               <div className="flex items-center gap-3">
 
-                <button className="h-11 w-11 rounded-xl border border-gray-200 bg-white font-semibold text-blue-600 shadow-sm transition hover:bg-blue-600 hover:text-white">
+                <button className="h-11 w-11 rounded-xl border border-[var(--border)] bg-[var(--card)] font-semibold text-[var(--accent)] shadow-sm transition hover:bg-[var(--accent)] hover:text-white">
                   1
                 </button>
 
-                <button className="h-11 w-11 rounded-xl border border-gray-200 bg-white font-semibold transition hover:bg-blue-600 hover:text-white">
+                <button className="h-11 w-11 rounded-xl border border-[var(--border)] bg-[var(--card)] font-semibold text-[var(--text-secondary)] transition hover:bg-[var(--accent)] hover:text-white">
                   2
                 </button>
 
@@ -275,7 +268,7 @@ function CategoryPage({
                   3
                 </button>
 
-                <button className="rounded-xl border border-gray-200 bg-white px-5 py-3 font-semibold transition hover:bg-blue-600 hover:text-white">
+                <button className="rounded-xl border border-[var(--border)] bg-[var(--card)] px-5 py-3 font-semibold text-[var(--text-secondary)] transition hover:bg-[var(--accent)] hover:text-white">
                   Next →
                 </button>
 
