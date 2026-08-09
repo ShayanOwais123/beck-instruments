@@ -1,19 +1,48 @@
 import { useState } from "react";
-import { FiMapPin, FiPhone, FiMail, FiClock, FiSend, FiCheck } from "react-icons/fi";
-
+import { FiMapPin, FiPhone, FiMail, FiClock, FiSend, FiCheck, FiAlertCircle } from "react-icons/fi";
+import { db } from "../firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+ 
 function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
   const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+ 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+ 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+    try {
+      // Save the message into a "messages" collection in Firestore
+      await addDoc(collection(db, "messages"), {
+        ...formData,
+        createdAt: serverTimestamp(),
+      });
+      setSubmitted(true);
+      setFormData({ name: "", email: "", subject: "", message: "" });
+      setTimeout(() => setSubmitted(false), 3000);
+    } catch (err) {
+      setError("Something went wrong. Please try again.");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+ 
   return (
     <section className="min-h-screen bg-[var(--bg)] pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-
+ 
         <div className="text-center max-w-3xl mx-auto mb-16">
           <p className="inline-block rounded-full border border-[var(--accent)]/20 bg-[var(--accent)]/5 px-5 py-1.5 text-xs font-semibold uppercase tracking-[3px] text-[var(--accent)]">
             Get In Touch
@@ -25,9 +54,9 @@ function Contact() {
             Have a question about our products or need a custom solution? Our team of experts is ready to help you.
           </p>
         </div>
-
+ 
         <div className="grid lg:grid-cols-2 gap-12">
-
+ 
           <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-8 lg:p-10 shadow-sm">
             <h2 className="text-2xl font-bold text-[var(--text)] mb-8">Send us a Message</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -36,7 +65,10 @@ function Contact() {
                   <label className="block text-sm font-medium text-[var(--text)] mb-2">Full Name *</label>
                   <input
                     type="text"
+                    name="name"
                     required
+                    value={formData.name}
+                    onChange={handleChange}
                     className="w-full rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-3 text-[var(--text)] placeholder-[var(--muted)] outline-none transition-all focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/10"
                     placeholder="John Doe"
                   />
@@ -45,7 +77,10 @@ function Contact() {
                   <label className="block text-sm font-medium text-[var(--text)] mb-2">Email *</label>
                   <input
                     type="email"
+                    name="email"
                     required
+                    value={formData.email}
+                    onChange={handleChange}
                     className="w-full rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-3 text-[var(--text)] placeholder-[var(--muted)] outline-none transition-all focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/10"
                     placeholder="john@example.com"
                   />
@@ -55,6 +90,9 @@ function Contact() {
                 <label className="block text-sm font-medium text-[var(--text)] mb-2">Subject</label>
                 <input
                   type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
                   className="w-full rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-3 text-[var(--text)] placeholder-[var(--muted)] outline-none transition-all focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/10"
                   placeholder="How can we help you?"
                 />
@@ -62,15 +100,25 @@ function Contact() {
               <div>
                 <label className="block text-sm font-medium text-[var(--text)] mb-2">Message *</label>
                 <textarea
+                  name="message"
                   required
                   rows={5}
+                  value={formData.message}
+                  onChange={handleChange}
                   className="w-full rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-3 text-[var(--text)] placeholder-[var(--muted)] outline-none transition-all focus:border-[var(--accent)] focus:ring-2 focus:ring-[var(--accent)]/10 resize-none"
                   placeholder="Tell us about your requirements..."
                 />
               </div>
+              {error && (
+                <div className="flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+                  <FiAlertCircle size={16} />
+                  {error}
+                </div>
+              )}
               <button
                 type="submit"
-                className="inline-flex items-center gap-2 bg-[var(--accent)] hover:bg-[var(--accent)]/90 text-white px-8 py-4 rounded-xl font-semibold transition-all hover:-translate-y-0.5 active:scale-95 shadow-sm w-full justify-center"
+                disabled={loading}
+                className="inline-flex items-center gap-2 bg-[var(--accent)] hover:bg-[var(--accent)]/90 text-white px-8 py-4 rounded-xl font-semibold transition-all hover:-translate-y-0.5 active:scale-95 shadow-sm w-full justify-center disabled:opacity-50"
               >
                 {submitted ? (
                   <>
@@ -80,13 +128,13 @@ function Contact() {
                 ) : (
                   <>
                     <FiSend size={18} />
-                    Send Message
+                    {loading ? "Sending..." : "Send Message"}
                   </>
                 )}
               </button>
             </form>
           </div>
-
+ 
           <div className="space-y-8">
             <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-8 lg:p-10 shadow-sm">
               <h2 className="text-2xl font-bold text-[var(--text)] mb-8">Contact Information</h2>
@@ -109,7 +157,7 @@ function Contact() {
                 ))}
               </div>
             </div>
-
+ 
             <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-8 lg:p-10 shadow-sm">
               <h3 className="text-lg font-bold text-[var(--text)] mb-4">Our Location</h3>
               <div className="h-64 rounded-xl bg-[var(--bg)] flex items-center justify-center border border-dashed border-[var(--border)]">
@@ -121,11 +169,11 @@ function Contact() {
               </div>
             </div>
           </div>
-
+ 
         </div>
       </div>
     </section>
   );
 }
-
+ 
 export default Contact;

@@ -10,24 +10,41 @@ import {
   FiSend,
   FiArrowUp,
 } from "react-icons/fi";
-
+import { db } from "../firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+ 
 function Footer() {
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = (e) => {
+  const [subscribing, setSubscribing] = useState(false);
+  const [subscribeError, setSubscribeError] = useState("");
+ 
+  const handleSubscribe = async (e) => {
     e.preventDefault();
-    if (email) {
+    if (!email) return;
+    setSubscribeError("");
+    setSubscribing(true);
+    try {
+      // Save the email into a "subscribers" collection in Firestore
+      await addDoc(collection(db, "subscribers"), {
+        email,
+        createdAt: serverTimestamp(),
+      });
       setSubscribed(true);
       setEmail("");
       setTimeout(() => setSubscribed(false), 3000);
+    } catch (err) {
+      setSubscribeError("Failed to subscribe. Try again.");
+      console.error(err);
+    } finally {
+      setSubscribing(false);
     }
   };
-
+ 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
+ 
   return (
     <footer className="relative bg-[var(--primary)] text-gray-300">
       {/* Newsletter Section */}
@@ -63,12 +80,16 @@ function Footer() {
                   </div>
                   <button
                     type="submit"
-                    className="flex items-center gap-2 rounded-xl bg-[var(--accent)] px-6 py-4 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:bg-[var(--accent-dark)] hover:shadow-md active:scale-95"
+                    disabled={subscribing}
+                    className="flex items-center gap-2 rounded-xl bg-[var(--accent)] px-6 py-4 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:bg-[var(--accent-dark)] hover:shadow-md active:scale-95 disabled:opacity-50"
                   >
                     <FiSend size={16} />
-                    Subscribe
+                    {subscribing ? "..." : "Subscribe"}
                   </button>
                 </div>
+                {subscribeError && (
+                  <p className="mt-3 text-sm text-red-400">{subscribeError}</p>
+                )}
                 {subscribed && (
                   <p className="mt-3 text-sm text-green-400 animate-fade-in">
                     ✓ Successfully subscribed! Thank you.
@@ -79,7 +100,7 @@ function Footer() {
           </div>
         </div>
       </div>
-
+ 
       {/* Main Footer Content */}
       <div className="border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
@@ -120,7 +141,7 @@ function Footer() {
                 </a>
               </div>
             </div>
-
+ 
             {/* Quick Links */}
             <div>
               <h3 className="text-lg font-semibold text-white mb-6">
@@ -146,7 +167,7 @@ function Footer() {
                 ))}
               </ul>
             </div>
-
+ 
             {/* Categories */}
             <div>
               <h3 className="text-lg font-semibold text-white mb-6">
@@ -171,7 +192,7 @@ function Footer() {
                 ))}
               </ul>
             </div>
-
+ 
             {/* Contact */}
             <div>
               <h3 className="text-lg font-semibold text-white mb-6">
@@ -216,7 +237,7 @@ function Footer() {
           </div>
         </div>
       </div>
-
+ 
       {/* Bottom Bar */}
       <div className="border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
@@ -247,7 +268,7 @@ function Footer() {
           </div>
         </div>
       </div>
-
+ 
       {/* Scroll to Top */}
       <button
         onClick={scrollToTop}
@@ -259,5 +280,6 @@ function Footer() {
     </footer>
   );
 }
-
+ 
 export default Footer;
+ 

@@ -1,13 +1,22 @@
 import { Link, useParams } from "react-router-dom";
-import { FiMinus, FiPlus, FiShoppingCart } from "react-icons/fi";
+import { FiMinus, FiPlus, FiShoppingCart, FiCheck } from "react-icons/fi";
 import { useState } from "react";
 import allProducts from "../../Data/Products";
-
+import { useCart } from "../../context/CartContext";
+ 
 function ProductDetails() {
   const { category, slug } = useParams();
   const product = allProducts.find((item) => item.category === category && item.slug === slug);
   const [quantity, setQuantity] = useState(1);
-
+  const [added, setAdded] = useState(false);
+  const { addToCart } = useCart();
+ 
+  function handleAddToCart() {
+    addToCart(product, quantity);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  }
+ 
   if (!product) {
     return (
       <section className="min-h-screen bg-[var(--bg)] pt-40 text-center">
@@ -18,7 +27,7 @@ function ProductDetails() {
       </section>
     );
   }
-
+ 
   return (
     <section className="min-h-screen bg-[var(--bg)] pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
@@ -31,19 +40,19 @@ function ProductDetails() {
           <span>/</span>
           <span className="font-medium text-[var(--text)]">{product.name}</span>
         </div>
-
+ 
         <div className="mt-10 grid lg:grid-cols-2 gap-12 items-start">
           <div className="lg:sticky lg:top-28">
             <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-8 shadow-sm">
               <img src={product.image} alt={product.name} className="w-full h-[500px] object-contain" />
             </div>
           </div>
-
+ 
           <div>
             <p className="uppercase tracking-[4px] text-[var(--accent)] font-semibold text-sm">{product.category}</p>
             <h1 className="mt-3 text-4xl font-bold text-[var(--text)]">{product.name}</h1>
             <p className="mt-6 text-[var(--text-secondary)] leading-8">{product.description}</p>
-
+ 
             <div className="mt-8 space-y-4">
               {[
                 {label:"Material",value:product.material},
@@ -57,7 +66,7 @@ function ProductDetails() {
                 </div>
               )})}
             </div>
-
+ 
             <div className="mt-10">
               <p className="font-semibold text-[var(--text)] mb-4">Quantity</p>
               <div className="flex flex-wrap items-center gap-5">
@@ -67,12 +76,17 @@ function ProductDetails() {
                   <button onClick={function(){setQuantity(quantity+1)}} className="px-5 py-3 text-[var(--text-secondary)] hover:bg-[var(--accent)]/10 transition"><FiPlus /></button>
                 </div>
                 <div className="flex flex-wrap gap-4">
-                  <button className="flex items-center gap-3 bg-[var(--accent)] hover:bg-[var(--accent)]/90 text-white px-8 py-4 rounded-xl font-semibold transition-all hover:-translate-y-0.5 active:scale-95 shadow-sm"><FiShoppingCart /> Add To Cart</button>
+                  <button
+                    onClick={handleAddToCart}
+                    className="flex items-center gap-3 bg-[var(--accent)] hover:bg-[var(--accent)]/90 text-white px-8 py-4 rounded-xl font-semibold transition-all hover:-translate-y-0.5 active:scale-95 shadow-sm"
+                  >
+                    {added ? <FiCheck /> : <FiShoppingCart />} {added ? "Added!" : "Add To Cart"}
+                  </button>
                   <button className="border-2 border-[var(--accent)] text-[var(--accent)] hover:bg-[var(--accent)] hover:text-white px-8 py-4 rounded-xl font-semibold transition-all hover:-translate-y-0.5 active:scale-95">Request Quote</button>
                 </div>
               </div>
             </div>
-
+ 
             <div className="mt-12 rounded-2xl border border-[var(--border)] bg-[var(--card)] p-8 shadow-sm">
               <h2 className="text-2xl font-bold text-[var(--text)]">Key Features</h2>
               <div className="mt-6 grid md:grid-cols-2 gap-4">
@@ -86,7 +100,7 @@ function ProductDetails() {
             </div>
           </div>
         </div>
-
+ 
         <div className="mt-20">
           <h2 className="text-3xl font-bold text-[var(--text)] mb-10">Related Products</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -108,4 +122,5 @@ function ProductDetails() {
   );
 }
 export default ProductDetails;
-
+ 
+ 

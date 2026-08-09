@@ -21,8 +21,9 @@ import PrivacyPolicy from "./Pages/PrivacyPolicy";
 import TermsConditions from "./Pages/TermsConditions";
 import Login from "./Pages/Login";
 import Signup from "./Pages/Signup";
+import SearchResults from "./Pages/SearchResults";
 import ScrollToTop from "./components/ScrollToTop";
-
+ 
 function App() {
   return (
     <BrowserRouter>
@@ -52,6 +53,7 @@ function App() {
                 <Route path="/terms-conditions" element={<TermsConditions />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/search" element={<SearchResults />} />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
@@ -61,5 +63,6 @@ function App() {
     </BrowserRouter>
   );
 }
-
+ 
 export default App;
+ 

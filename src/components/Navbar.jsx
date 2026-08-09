@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
   FiSearch,
   FiShoppingCart,
@@ -30,6 +30,15 @@ function Navbar() {
   const { getCartCount } = useCart();
   const { currentUser, logout } = useAuth();
   const [isAccountOpen, setIsAccountOpen] = useState(false);
+  const navigate = useNavigate();
+
+  function handleSearchSubmit(e) {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+    navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    setIsSearchOpen(false);
+    setSearchQuery("");
+  }
 
   async function handleLogout() {
     try {
@@ -267,7 +276,7 @@ function Navbar() {
           {/* Search Bar */}
           {isSearchOpen && (
             <div className="border-t border-[var(--border)] bg-[var(--card)] px-6 lg:px-8 py-4">
-              <div className="max-w-3xl mx-auto relative">
+              <form onSubmit={handleSearchSubmit} className="max-w-3xl mx-auto relative">
                 <input
                   type="text"
                   placeholder="Search instruments, categories, materials..."
@@ -278,6 +287,7 @@ function Navbar() {
                 />
                 <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--muted)]" size={16} />
                 <button
+                  type="button"
                   onClick={() => {
                     setIsSearchOpen(false);
                     setSearchQuery("");
@@ -286,7 +296,7 @@ function Navbar() {
                 >
                   Esc
                 </button>
-              </div>
+              </form>
             </div>
           )}
         </nav>
