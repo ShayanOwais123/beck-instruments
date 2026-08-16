@@ -76,23 +76,28 @@ function ProductCard({ product, index = 0 }) {
           </div>
 
           {/* Actions */}
-          <div className="mt-6 flex items-center justify-between border-t border-[var(--border)] pt-4">
-            <Link
-              to={`/products/${product.category}/${product.slug}`}
-              className="group/link flex items-center gap-2 text-sm font-semibold text-[var(--accent)] transition-all duration-300 hover:gap-3"
-            >
-              View Details
-              <span className="transition-transform duration-300 group-hover/link:translate-x-1">
-                →
-              </span>
-            </Link>
-            <button
-              onClick={() => addToCart(product)}
-              className="flex items-center gap-2 rounded-xl bg-[var(--accent)] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:bg-[var(--accent-dark)] hover:shadow-md active:scale-95"
-            >
-              <FiShoppingCart size={15} />
-              Add
-            </button>
+          <div className="mt-6 border-t border-[var(--border)] pt-4">
+            <span className="text-lg font-bold text-[var(--text)]">
+              ${product.price?.toFixed(2)}
+            </span>
+            <div className="mt-3 flex items-center justify-between">
+              <Link
+                to={`/products/${product.category}/${product.slug}`}
+                className="group/link flex items-center gap-2 text-sm font-semibold text-[var(--accent)] transition-all duration-300 hover:gap-3"
+              >
+                View Details
+                <span className="transition-transform duration-300 group-hover/link:translate-x-1">
+                  →
+                </span>
+              </Link>
+              <button
+                onClick={() => addToCart(product)}
+                className="flex items-center gap-2 rounded-xl bg-[var(--accent)] px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:bg-[var(--accent-dark)] hover:shadow-md active:scale-95"
+              >
+                <FiShoppingCart size={15} />
+                Add
+              </button>
+            </div>
           </div>
         </div>
       </div>

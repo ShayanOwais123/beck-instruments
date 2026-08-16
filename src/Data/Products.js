@@ -45,6 +45,7 @@ const products = [
     finish: "Mirror Finish",
     sizes: ["14 cm", "16 cm", "18 cm"],
     sku: "BK-001",
+    price: 24.99,
     features: [
       "German Stainless Steel",
       "Rust Resistant",
@@ -66,6 +67,7 @@ const products = [
     finish: "Satin Finish",
     sizes: ["12 cm", "14 cm", "16 cm"],
     sku: "BK-002",
+    price: 18.5,
     features: [
       "German Stainless Steel",
       "Secure Grip",
@@ -87,6 +89,7 @@ const products = [
     finish: "Mirror Finish",
     sizes: ["14 cm", "16 cm", "18 cm"],
     sku: "BK-003",
+    price: 21.0,
     features: [
       "Fine Grip",
       "German Steel",
@@ -108,6 +111,7 @@ const products = [
     finish: "Satin Finish",
     sizes: ["12 cm", "14 cm"],
     sku: "BK-004",
+    price: 16.75,
     features: [
       "Precision Tips",
       "German Steel",
@@ -129,6 +133,7 @@ const products = [
     finish: "Matte Finish",
     sizes: ["No. 3", "No. 4"],
     sku: "BK-005",
+    price: 12.0,
     features: [
       "Medical Grade",
       "Non-Slip Grip",
@@ -150,6 +155,7 @@ const products = [
     finish: "Mirror Finish",
     sizes: ["14 cm", "16 cm"],
     sku: "BK-006",
+    price: 15.5,
     features: [
       "Rounded Tips",
       "Rust Resistant",
@@ -173,6 +179,7 @@ const products = [
     finish: "Mirror Finish",
     sizes: ["Standard"],
     sku: "BK-007",
+    price: 8.0,
     features: [
       "Fog Resistant",
       "Premium Steel",
@@ -194,6 +201,7 @@ const products = [
     finish: "Mirror Finish",
     sizes: ["Standard"],
     sku: "BK-008",
+    price: 9.5,
     features: [
       "Fine Tip",
       "Diagnostic Tool",
@@ -214,6 +222,7 @@ const products = [
     finish: "Satin Finish",
     sizes: ["Adult", "Child"],
     sku: "BK-009",
+    price: 22.0,
     features: [
       "Strong Grip",
       "German Steel",
@@ -237,6 +246,7 @@ const products = [
     finish: "Mirror Finish",
     sizes: ["14 cm", "16 cm"],
     sku: "BK-010",
+    price: 19.99,
     features: [
       "Veterinary Grade",
       "Autoclavable",
@@ -258,6 +268,7 @@ const products = [
     finish: "Satin Finish",
     sizes: ["14 cm"],
     sku: "BK-011",
+    price: 17.25,
     features: [
       "Fine Grip",
       "Reusable",
@@ -281,6 +292,7 @@ const products = [
     finish: "Mirror Finish",
     sizes: ["Standard"],
     sku: "BK-012",
+    price: 11.0,
     features: [
       "Sharp Cutting Edge",
       "Professional Quality",
@@ -302,6 +314,7 @@ const products = [
     finish: "Matte Finish",
     sizes: ["Standard"],
     sku: "BK-013",
+    price: 7.5,
     features: [
       "Precision Tip",
       "Comfort Grip",
@@ -325,6 +338,7 @@ const products = [
     finish: "Polished",
     sizes: ["Standard"],
     sku: "BK-014",
+    price: 6.0,
     features: [
       "Chemical Resistant",
       "Laboratory Grade",
@@ -346,6 +360,7 @@ const products = [
     finish: "Polished",
     sizes: ["Standard"],
     sku: "BK-015",
+    price: 10.5,
     features: [
       "Precision Grip",
       "Laboratory Grade",

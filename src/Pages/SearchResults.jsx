@@ -1,11 +1,12 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
-import allProducts from "../Data/Products";
+import { useProducts } from "../hooks/useProducts";
 import ProductCard from "../components/ProductCard";
 
 function SearchResults() {
   const [searchParams] = useSearchParams();
   const query = (searchParams.get("q") || "").trim().toLowerCase();
+  const { products: allProducts, loading } = useProducts();
 
   const results = query
     ? allProducts.filter((product) => {
@@ -38,7 +39,9 @@ function SearchResults() {
           </p>
         </div>
 
-        {results.length > 0 ? (
+        {loading ? (
+          <p className="text-[var(--text-secondary)] py-20 text-center">Loading...</p>
+        ) : results.length > 0 ? (
           <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-8">
             {results.map((product, index) => (
               <ProductCard key={product.id} product={product} index={index} />

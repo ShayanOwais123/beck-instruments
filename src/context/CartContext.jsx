@@ -39,6 +39,7 @@ export function CartProvider({ children }) {
           image: product.image,
           material: product.material,
           sku: product.sku,
+          price: product.price,
           quantity,
         },
       ];
@@ -67,7 +68,10 @@ export function CartProvider({ children }) {
   }, []);
 
   const getCartTotal = useCallback(() => {
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
+    return cartItems.reduce(
+      (total, item) => total + (item.price || 0) * item.quantity,
+      0
+    );
   }, [cartItems]);
 
   const getCartCount = useCallback(() => {

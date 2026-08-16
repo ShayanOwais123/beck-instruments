@@ -1,22 +1,31 @@
 import { Link, useParams } from "react-router-dom";
 import { FiMinus, FiPlus, FiShoppingCart, FiCheck } from "react-icons/fi";
 import { useState } from "react";
-import allProducts from "../../Data/Products";
+import { useProducts } from "../../hooks/useProducts";
 import { useCart } from "../../context/CartContext";
- 
+
 function ProductDetails() {
   const { category, slug } = useParams();
+  const { products: allProducts, loading } = useProducts();
   const product = allProducts.find((item) => item.category === category && item.slug === slug);
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
   const { addToCart } = useCart();
- 
+
   function handleAddToCart() {
     addToCart(product, quantity);
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   }
- 
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-[var(--bg)] pt-32 pb-24 flex items-center justify-center">
+        <p className="text-[var(--text-secondary)]">Loading product...</p>
+      </main>
+    );
+  }
+
   if (!product) {
     return (
       <section className="min-h-screen bg-[var(--bg)] pt-40 text-center">
@@ -27,7 +36,7 @@ function ProductDetails() {
       </section>
     );
   }
- 
+
   return (
     <section className="min-h-screen bg-[var(--bg)] pt-32 pb-24">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
@@ -40,19 +49,20 @@ function ProductDetails() {
           <span>/</span>
           <span className="font-medium text-[var(--text)]">{product.name}</span>
         </div>
- 
+
         <div className="mt-10 grid lg:grid-cols-2 gap-12 items-start">
           <div className="lg:sticky lg:top-28">
             <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-8 shadow-sm">
               <img src={product.image} alt={product.name} className="w-full h-[500px] object-contain" />
             </div>
           </div>
- 
+
           <div>
             <p className="uppercase tracking-[4px] text-[var(--accent)] font-semibold text-sm">{product.category}</p>
             <h1 className="mt-3 text-4xl font-bold text-[var(--text)]">{product.name}</h1>
+            <p className="mt-4 text-3xl font-extrabold text-[var(--accent)]">${product.price?.toFixed(2)}</p>
             <p className="mt-6 text-[var(--text-secondary)] leading-8">{product.description}</p>
- 
+
             <div className="mt-8 space-y-4">
               {[
                 {label:"Material",value:product.material},
@@ -66,7 +76,7 @@ function ProductDetails() {
                 </div>
               )})}
             </div>
- 
+
             <div className="mt-10">
               <p className="font-semibold text-[var(--text)] mb-4">Quantity</p>
               <div className="flex flex-wrap items-center gap-5">
@@ -86,7 +96,7 @@ function ProductDetails() {
                 </div>
               </div>
             </div>
- 
+
             <div className="mt-12 rounded-2xl border border-[var(--border)] bg-[var(--card)] p-8 shadow-sm">
               <h2 className="text-2xl font-bold text-[var(--text)]">Key Features</h2>
               <div className="mt-6 grid md:grid-cols-2 gap-4">
@@ -100,7 +110,7 @@ function ProductDetails() {
             </div>
           </div>
         </div>
- 
+
         <div className="mt-20">
           <h2 className="text-3xl font-bold text-[var(--text)] mb-10">Related Products</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -122,5 +132,3 @@ function ProductDetails() {
   );
 }
 export default ProductDetails;
- 
- 

@@ -13,6 +13,7 @@ import {
   FiMail,
   FiArrowRight,
   FiLogOut,
+  FiEdit2,
 } from "react-icons/fi";
 import { useTheme } from "../context/ThemeContext";
 import { useCart } from "../context/CartContext";
@@ -94,9 +95,9 @@ function Navbar() {
           }`}
         >
           <div className="flex items-center gap-6">
-            <a href="tel:+1234567890" className="flex items-center gap-2 hover:text-[var(--accent)] transition-colors">
+            <a href="tel:+923001234567" className="flex items-center gap-2 hover:text-[var(--accent)] transition-colors">
               <FiPhone size={13} />
-              <span>+1 (800) 854-0153</span>
+              <span>+92 300 1234567</span>
             </a>
             <a href="mailto:info@beckinstruments.com" className="flex items-center gap-2 hover:text-[var(--accent)] transition-colors">
               <FiMail size={13} />
@@ -225,6 +226,16 @@ function Navbar() {
                         <div className="px-4 py-3 text-sm text-[var(--text-secondary)] truncate border-b border-[var(--border)] mb-1">
                           {currentUser.email}
                         </div>
+                        {currentUser.email === "shayanowais27@gmail.com" && (
+                          <Link
+                            to="/admin"
+                            onClick={() => setIsAccountOpen(false)}
+                            className="flex w-full items-center gap-2 rounded-xl px-4 py-3 text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/5 transition-all duration-200"
+                          >
+                            <FiEdit2 size={16} />
+                            Manage Products
+                          </Link>
+                        )}
                         <button
                           onClick={handleLogout}
                           className="flex w-full items-center gap-2 rounded-xl px-4 py-3 text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/5 transition-all duration-200"
@@ -337,6 +348,45 @@ function Navbar() {
           </div>
         </div>
 
+        <div className="p-4 border-b border-[var(--border)]">
+          <form
+            onSubmit={(e) => {
+              handleSearchSubmit(e);
+              setIsMenuOpen(false);
+            }}
+            className="relative"
+          >
+            <input
+              type="text"
+              placeholder="Search instruments..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full rounded-xl border border-[var(--border)] bg-[var(--bg)] px-4 py-3 pl-11 text-sm text-[var(--text)] placeholder-[var(--muted)] outline-none transition-all focus:border-[var(--accent)]"
+            />
+            <FiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--muted)]" size={16} />
+          </form>
+
+          {currentUser ? (
+            <div className="mt-3 flex items-center justify-between rounded-xl bg-[var(--accent)]/5 px-4 py-3">
+              <span className="text-sm text-[var(--text-secondary)] truncate">{currentUser.email}</span>
+              <button
+                onClick={handleLogout}
+                className="shrink-0 text-sm font-semibold text-[var(--accent)]"
+              >
+                Log Out
+              </button>
+            </div>
+          ) : (
+            <Link
+              to="/login"
+              onClick={() => setIsMenuOpen(false)}
+              className="mt-3 flex items-center justify-center gap-2 rounded-xl bg-[var(--accent)] px-4 py-3 text-sm font-semibold text-white"
+            >
+              <FiUser size={16} /> Log In / Sign Up
+            </Link>
+          )}
+        </div>
+
         <ul className="flex flex-col p-4 gap-1 text-base font-medium">
           <li>
             <NavLink
@@ -417,11 +467,11 @@ function Navbar() {
         <div className="absolute bottom-0 left-0 w-full p-6 border-t border-[var(--border)]">
           <div className="flex flex-col gap-3">
             <a
-              href="tel:+1234567890"
+              href="tel:+923001234567"
               className="flex items-center gap-3 rounded-xl px-4 py-3 text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/5 transition-all"
             >
               <FiPhone size={16} />
-              +1 (800) 854-0153
+              +92 300 1234567
             </a>
             <Link
               to="/contact"

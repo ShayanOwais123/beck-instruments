@@ -61,6 +61,9 @@ function Cart() {
                           {item.category}
                         </p>
                         <h3 className="mt-1 text-lg font-bold text-[var(--text)] truncate">{item.name}</h3>
+                        <p className="mt-1 text-sm text-[var(--text-secondary)]">
+                          ${item.price?.toFixed(2)} each
+                        </p>
                       </div>
                       <button
                         onClick={() => removeFromCart(item.id)}
@@ -69,21 +72,26 @@ function Cart() {
                         <FiTrash2 size={15} />
                       </button>
                     </div>
-                    <div className="mt-4 flex items-center gap-3">
-                      <button
-                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                        disabled={item.quantity <= 1}
-                        className="flex h-9 w-9 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--bg)] text-[var(--text-secondary)] hover:bg-[var(--accent)] hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        <FiMinus size={14} />
-                      </button>
-                      <span className="w-10 text-center font-semibold text-[var(--text)]">{item.quantity}</span>
-                      <button
-                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                        className="flex h-9 w-9 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--bg)] text-[var(--text-secondary)] hover:bg-[var(--accent)] hover:text-white transition-all"
-                      >
-                        <FiPlus size={14} />
-                      </button>
+                    <div className="mt-4 flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          disabled={item.quantity <= 1}
+                          className="flex h-9 w-9 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--bg)] text-[var(--text-secondary)] hover:bg-[var(--accent)] hover:text-white transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                          <FiMinus size={14} />
+                        </button>
+                        <span className="w-10 text-center font-semibold text-[var(--text)]">{item.quantity}</span>
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          className="flex h-9 w-9 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--bg)] text-[var(--text-secondary)] hover:bg-[var(--accent)] hover:text-white transition-all"
+                        >
+                          <FiPlus size={14} />
+                        </button>
+                      </div>
+                      <span className="font-bold text-[var(--text)]">
+                        ${(item.price * item.quantity).toFixed(2)}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -118,4 +126,3 @@ function Cart() {
 }
 
 export default Cart;
-
