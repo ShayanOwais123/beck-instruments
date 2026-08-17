@@ -1,7 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import { FiMinus, FiPlus, FiShoppingCart, FiCheck } from "react-icons/fi";
 import { useState } from "react";
-import { useProducts } from "../../hooks/useProducts";
+import { useProducts } from "../../Hooks/useProducts";
 import { useCart } from "../../context/CartContext";
 
 function ProductDetails() {

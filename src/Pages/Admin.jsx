@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { useAuth } from "../context/AuthContext";
-import { useProducts } from "../hooks/useProducts";
+import { useProducts } from "../Hooks/useProducts";
 import localProducts from "../Data/Products";
 import { FiTrash2, FiEdit2, FiPlus, FiUpload, FiX, FiLock } from "react-icons/fi";
 

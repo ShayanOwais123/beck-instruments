@@ -1,4 +1,3 @@
-import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import About from "../components/About";
 import TrustedBrands from "../components/TrustedBrands";
@@ -8,7 +7,6 @@ import ManufacturingProcess from "../components/ManufacturingProcess";
 import Certification from "../components/Certification";
 import Testimonials from "../components/Testimonials";
 import CTA from "../components/CTA";
-import Footer from "../components/Footer";
 
 function Home() {
   return (

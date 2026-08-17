@@ -1,6 +1,6 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
-import { useProducts } from "../hooks/useProducts";
+import { useProducts } from "../Hooks/useProducts";
 import ProductCard from "../components/ProductCard";
 
 function SearchResults() {

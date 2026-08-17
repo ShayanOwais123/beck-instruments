@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { FiFilter, FiX } from "react-icons/fi";
-import { useProducts } from "../hooks/useProducts";
+import { useProducts } from "../Hooks/useProducts";
 import ProductCard from "../components/ProductCard";
 
 const PRODUCTS_PER_PAGE = 6;
@@ -67,7 +67,7 @@ function CategoryPage({
       }
       return true;
     });
-  }, [category, selectedCategories, selectedMaterials, selectedFinishes]);
+  }, [allProducts, category, selectedCategories, selectedMaterials, selectedFinishes]);
 
   const totalPages = Math.max(1, Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE));
   const safePage = Math.min(currentPage, totalPages);
