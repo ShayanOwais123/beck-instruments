@@ -1,16 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
-/**
- * High Performance Interactive 3D Medical Instrument Viewer
- * Features:
- * - Procedural metallic shader geometries (Scalpel, Forceps/Needle Holder, Scissors, Tweezers)
- * - 360° drag rotation & scroll zoom with inertia
- * - Material presets: German Satin Steel, Mirror Polish Chrome, Gold Tungsten Carbide (TC), Stealth Titanium
- * - Interactive 3D Spec Hotspots (Pins) with animated tooltip overlays
- * - Auto-rotation toggle & reset view controls
- */
-
 const MATERIALS = {
   satin: {
     name: "German Satin Steel",
@@ -351,23 +341,23 @@ export default function Instrument3DViewer({
       </div>
 
       {/* Interactive Spec Hotspot Overlay Pins */}
-      <div className="absolute inset-x-0 bottom-16 pointer-events-none flex flex-col justify-end p-3 sm:p-4">
-        <div className="flex flex-wrap gap-1.5 sm:gap-2 pointer-events-auto">
+      <div className="absolute inset-x-0 bottom-14 sm:bottom-16 pointer-events-none flex flex-col justify-end p-2.5 sm:p-4">
+        <div className="flex flex-wrap gap-1 sm:gap-2 pointer-events-auto">
           {hotspots.map((h, idx) => (
             <button
               key={h.id}
               onClick={() => setActiveHotspot(activeHotspot === h.id ? null : h.id)}
-              className={`group relative text-left text-[11px] px-2.5 py-1.5 rounded-xl backdrop-blur-xl border transition-all ${
+              className={`group relative text-left text-[10px] sm:text-[11px] px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl backdrop-blur-xl border transition-all ${
                 activeHotspot === h.id
                   ? "bg-blue-600/90 text-white border-blue-300 shadow-lg shadow-blue-500/30 scale-105"
                   : "bg-black/60 text-slate-300 border-white/10 hover:border-blue-400/50 hover:bg-black/80"
               }`}
             >
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1 sm:gap-1.5">
                 <span className="w-3.5 h-3.5 rounded-full bg-blue-500 text-[9px] font-bold flex items-center justify-center text-white">
                   {idx + 1}
                 </span>
-                <span className="font-medium truncate max-w-[120px] sm:max-w-none">{h.title}</span>
+                <span className="font-medium truncate max-w-[100px] sm:max-w-none">{h.title}</span>
               </div>
             </button>
           ))}
@@ -375,25 +365,25 @@ export default function Instrument3DViewer({
 
         {/* Hotspot details card popup */}
         {activeHotspot && (
-          <div className="mt-3 p-4 rounded-xl bg-slate-900/95 backdrop-blur-xl border border-blue-500/40 text-slate-100 shadow-2xl max-w-md pointer-events-auto animate-in fade-in slide-in-from-bottom-2 duration-200">
+          <div className="mt-2 sm:mt-3 p-3 sm:p-4 rounded-xl bg-slate-900/95 backdrop-blur-xl border border-blue-500/40 text-slate-100 shadow-2xl max-w-md pointer-events-auto animate-in fade-in slide-in-from-bottom-2 duration-200">
             {(() => {
               const item = hotspots.find((h) => h.id === activeHotspot);
               if (!item) return null;
               return (
                 <div>
                   <div className="flex items-center justify-between">
-                    <h4 className="text-sm font-bold text-blue-400 flex items-center gap-2">
+                    <h4 className="text-xs sm:text-sm font-bold text-blue-400 flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-blue-400"></span>
                       {item.title}
                     </h4>
                     <button
                       onClick={() => setActiveHotspot(null)}
-                      className="text-xs text-slate-400 hover:text-white"
+                      className="text-xs text-slate-400 hover:text-white p-1"
                     >
                       ✕
                     </button>
                   </div>
-                  <p className="mt-1.5 text-xs text-slate-300 leading-relaxed">{item.desc}</p>
+                  <p className="mt-1 text-[11px] sm:text-xs text-slate-300 leading-relaxed">{item.desc}</p>
                 </div>
               );
             })()}
@@ -402,15 +392,15 @@ export default function Instrument3DViewer({
       </div>
 
       {/* Bottom Material Selector Bar */}
-      <div className="absolute bottom-4 left-4 right-4 flex flex-wrap items-center justify-between gap-3 bg-black/60 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10 pointer-events-auto">
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold text-slate-300">Surface Finish:</span>
-          <div className="flex items-center gap-1.5">
+      <div className="absolute bottom-2.5 sm:bottom-4 left-2.5 sm:left-4 right-2.5 sm:right-4 flex items-center justify-between gap-2 bg-black/70 backdrop-blur-xl px-3 py-1.5 sm:py-2 rounded-xl border border-white/10 pointer-events-auto overflow-x-auto">
+        <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <span className="text-[10px] sm:text-xs font-semibold text-slate-300 hidden xs:inline">Finish:</span>
+          <div className="flex items-center gap-1 sm:gap-1.5">
             {Object.entries(MATERIALS).map(([key, config]) => (
               <button
                 key={key}
                 onClick={() => setSelectedMat(key)}
-                className={`px-2.5 py-1 rounded-lg text-xs font-medium transition-all ${
+                className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-lg text-[10px] sm:text-xs font-medium transition-all ${
                   selectedMat === key
                     ? "bg-blue-600 text-white shadow-md shadow-blue-500/30 scale-105"
                     : "bg-slate-800/80 text-slate-400 hover:text-white hover:bg-slate-700"
@@ -422,8 +412,8 @@ export default function Instrument3DViewer({
           </div>
         </div>
 
-        <div className="flex items-center gap-2 text-[11px] text-slate-400">
-          <span className="hidden sm:inline">🖱️ Drag to rotate | 📜 Scroll to zoom</span>
+        <div className="hidden md:flex items-center gap-2 text-[10px] sm:text-[11px] text-slate-400 shrink-0">
+          <span>Drag to rotate • Scroll to zoom</span>
         </div>
       </div>
     </div>

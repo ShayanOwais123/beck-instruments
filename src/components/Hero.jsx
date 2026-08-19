@@ -78,36 +78,36 @@ function Hero() {
           {/* Right 3D Viewer Card */}
           <div className="order-1 lg:order-2 relative flex flex-col items-center justify-center w-full">
             {/* Mode Switcher Tabs */}
-            <div className="mb-4 flex items-center gap-1.5 p-1.5 glass rounded-2xl shadow-lg z-20 relative">
+            <div className="mb-3 sm:mb-4 flex items-center gap-1 p-1 sm:p-1.5 glass rounded-2xl shadow-lg z-20 relative">
               <button
                 onClick={() => setViewMode("3d")}
-                className={`flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-bold transition-all duration-300 ${
+                className={`flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-300 ${
                   viewMode === "3d"
                     ? "bg-[var(--accent)] text-white shadow-md shadow-[var(--accent-glow)] scale-105"
                     : "text-[var(--text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"
                 }`}
               >
-                <FiBox size={14} /> Interactive 3D Model
+                <FiBox size={13} /> 3D Interactive
               </button>
               <button
                 onClick={() => setViewMode("photo")}
-                className={`flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-bold transition-all duration-300 ${
+                className={`flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-bold transition-all duration-300 ${
                   viewMode === "photo"
                     ? "bg-[var(--accent)] text-white shadow-md shadow-[var(--accent-glow)] scale-105"
                     : "text-[var(--text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"
                 }`}
               >
-                <FiImage size={14} /> Studio Photo
+                <FiImage size={13} /> Studio Photo
               </button>
             </div>
 
             <div className="relative w-full max-w-xl lg:max-w-2xl">
               {/* Main Card wrapper */}
-              <div className="relative rounded-[32px] border border-[var(--border)] bg-[var(--card)] p-3.5 shadow-2xl transition-all duration-500 hover:shadow-3xl backdrop-blur-xl">
-                <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent)]/10 via-transparent to-[var(--secondary)]/10 rounded-[32px] pointer-events-none"></div>
+              <div className="relative rounded-2xl sm:rounded-[32px] border border-[var(--border)] bg-[var(--card)] p-2 sm:p-3.5 shadow-2xl transition-all duration-500 hover:shadow-3xl backdrop-blur-xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent)]/10 via-transparent to-[var(--secondary)]/10 rounded-2xl sm:rounded-[32px] pointer-events-none"></div>
 
                 {viewMode === "3d" ? (
-                  <div className="relative w-full rounded-2xl overflow-hidden flex flex-col items-center justify-center">
+                  <div className="relative w-full rounded-xl sm:rounded-2xl overflow-hidden flex flex-col items-center justify-center">
                     <Instrument3DViewer
                       modelType={selectedModel}
                       productName={`${selectedModel.toUpperCase()} - VirtuLab`}
@@ -116,7 +116,7 @@ function Hero() {
                     />
 
                     {/* Enhanced Model Switcher Selector */}
-                    <div className="absolute top-16 left-3 right-3 sm:left-auto sm:right-4 flex justify-center sm:justify-end gap-1.5 p-1 bg-black/70 backdrop-blur-xl rounded-2xl border border-white/15 z-20 shadow-xl">
+                    <div className="absolute top-12 sm:top-16 left-2.5 right-2.5 sm:left-auto sm:right-4 flex justify-center sm:justify-end gap-1 p-1 bg-black/70 backdrop-blur-xl rounded-xl sm:rounded-2xl border border-white/15 z-20 shadow-xl overflow-x-auto">
                       {[
                         { id: "scalpel", label: "Scalpel" },
                         { id: "forceps", label: "Forceps" },
@@ -126,7 +126,7 @@ function Hero() {
                         <button
                           key={m.id}
                           onClick={() => setSelectedModel(m.id)}
-                          className={`px-3 py-1.5 rounded-xl text-[11px] font-bold tracking-wider uppercase transition-all duration-200 ${
+                          className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg sm:rounded-xl text-[10px] sm:text-[11px] font-bold tracking-wider uppercase transition-all duration-200 ${
                             selectedModel === m.id
                               ? "bg-[var(--accent)] text-white shadow-md shadow-[var(--accent-glow)]"
                               : "text-slate-300 hover:text-white hover:bg-white/10"
@@ -138,19 +138,19 @@ function Hero() {
                     </div>
                   </div>
                 ) : (
-                  <div className="relative h-[440px] sm:h-[500px] w-full flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900 via-slate-950 to-black p-6">
+                  <div className="relative h-[340px] sm:h-[480px] w-full flex items-center justify-center overflow-hidden rounded-xl sm:rounded-2xl bg-gradient-to-b from-slate-900 via-slate-950 to-black p-4 sm:p-6">
                     <img
                       src={heroImage}
                       alt="Surgical Instruments"
-                      className="relative z-10 max-h-[380px] w-auto object-contain transition-all duration-700 hover:scale-105 filter drop-shadow-2xl"
+                      className="relative z-10 max-h-[260px] sm:max-h-[380px] w-auto object-contain transition-all duration-700 hover:scale-105 filter drop-shadow-2xl"
                     />
                     
                     {/* Floating Info Overlay */}
-                    <div className="absolute bottom-4 left-4 right-4 z-20 rounded-2xl border border-white/20 bg-black/60 backdrop-blur-xl px-5 py-4 shadow-xl">
-                      <p className="text-xs uppercase tracking-[2px] font-bold text-[var(--accent)]">
+                    <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 z-20 rounded-xl sm:rounded-2xl border border-white/20 bg-black/60 backdrop-blur-xl px-4 py-3 sm:px-5 sm:py-4 shadow-xl">
+                      <p className="text-[10px] sm:text-xs uppercase tracking-[2px] font-bold text-[var(--accent)]">
                         Premium Quality Standard
                       </p>
-                      <h3 className="mt-1 text-sm font-bold text-white">
+                      <h3 className="mt-0.5 sm:mt-1 text-xs sm:text-sm font-bold text-white">
                         CE & ISO 13485 Registered Medical German Stainless Steel
                       </h3>
                     </div>
@@ -159,7 +159,7 @@ function Hero() {
               </div>
 
               {/* Floating Image Indicator */}
-              <div className="absolute -bottom-4 -right-4 lg:-bottom-6 lg:-right-6 z-30 h-16 w-16 lg:h-20 lg:w-20 rounded-2xl border-4 border-[var(--card)] shadow-xl overflow-hidden transition-all duration-300 hover:scale-110">
+              <div className="hidden sm:block absolute -bottom-4 -right-4 lg:-bottom-6 lg:-right-6 z-30 h-16 w-16 lg:h-20 lg:w-20 rounded-2xl border-4 border-[var(--card)] shadow-xl overflow-hidden transition-all duration-300 hover:scale-110">
                 <img
                   src={heroImage1}
                   alt="Surgical Instruments Detail"

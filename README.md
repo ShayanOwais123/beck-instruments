@@ -1,16 +1,59 @@
-# React + Vite
+# Beck Instruments — Interactive 3D Medical & Surgical Showcase
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A modern, high-performance web platform and interactive 3D product catalog for **Beck Instruments**, showcasing precision surgical, dental, veterinary, laboratory, and beauty instruments.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Features
 
-## React Compiler
+- **Interactive 3D Instrument Viewer:** Real-time Three.js WebGL rendering with procedural metallic shaders.
+- **Surface Finish Switcher:** German Satin Steel, Mirror Chrome Polish, Gold Tungsten Carbide (TC), and Stealth Titanium.
+- **Clinical Specification Pins:** Interactive 3D hotspots highlighting key surgical features and technical dimensions.
+- **Comprehensive Product Catalog:** Categorized catalog across Surgical, Dental, Veterinary, Beauty, and Laboratory instruments.
+- **Glassmorphic UI & Theme Modes:** Seamless Dark and Light theme modes with glassmorphism effects and tailored micro-animations.
+- **Responsive Architecture:** Fully optimized for mobile, tablet, and desktop screens.
+- **Cart & Inquiry System:** Product configuration with size selection and quote request flows.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the Oxlint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- **Frontend:** React 19, Vite
+- **3D Engine:** Three.js
+- **Styling:** Tailwind CSS, Custom CSS Variables
+- **Icons:** React Icons (Feather)
+- **Backend / Database:** Firebase (Authentication & Firestore)
+- **Deployment:** Vercel
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+
+### Installation
+```bash
+# Clone the repository
+git clone https://github.com/ShayanOwais123/beck-instruments.git
+
+# Navigate into the project
+cd beck-instruments
+
+# Install dependencies
+npm install
+
+# Start the local development server
+npm run dev
+```
+
+### Production Build
+```bash
+npm run build
+```
+
+---
+
+## 📄 License
+This project is open-source and available under the [MIT License](LICENSE).
