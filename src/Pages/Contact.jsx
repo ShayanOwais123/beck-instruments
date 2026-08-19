@@ -110,7 +110,7 @@ function Contact() {
                 />
               </div>
               {error && (
-                <div className="flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+                <div className="flex items-center gap-2 rounded-xl border border-[var(--error)]/20 bg-[var(--error)]/10 px-4 py-3 text-sm text-[var(--error)]">
                   <FiAlertCircle size={16} />
                   {error}
                 </div>
@@ -160,12 +160,15 @@ function Contact() {
  
             <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-8 lg:p-10 shadow-sm">
               <h3 className="text-lg font-bold text-[var(--text)] mb-4">Our Location</h3>
-              <div className="h-64 rounded-xl bg-[var(--bg)] flex items-center justify-center border border-dashed border-[var(--border)]">
-                <div className="text-center">
-                  <FiMapPin size={32} className="mx-auto text-[var(--accent)]" />
-                  <p className="mt-3 text-sm text-[var(--text-secondary)]">Karachi, Pakistan</p>
-                  <p className="text-xs text-[var(--muted)] mt-1">Interactive map placeholder</p>
-                </div>
+              <div className="h-64 rounded-xl overflow-hidden border border-[var(--border)]">
+                <iframe
+                  title="Beck Instruments Location"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d462560.6828193595!2d66.88567999999999!3d25.193389!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33e06651d4bbf%3A0x9cf92f44555a0c23!2sKarachi%2C%20Karachi%20City%2C%20Sindh%2C%20Pakistan!5e0!3m2!1sen!2s!4v1692376890000!5m2!1sen!2s"
+                  className="w-full h-full border-0"
+                  allowFullScreen=""
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
               </div>
             </div>
           </div>

@@ -57,7 +57,7 @@ function Signup() {
 
         <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-8 lg:p-10 shadow-sm">
           {error && (
-            <div className="mb-6 flex items-center gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+            <div className="mb-6 flex items-center gap-2 rounded-xl border border-[var(--error)]/20 bg-[var(--error)]/10 px-4 py-3 text-sm text-[var(--error)]">
               <FiAlertCircle size={16} />
               {error}
             </div>

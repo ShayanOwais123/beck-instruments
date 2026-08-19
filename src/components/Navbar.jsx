@@ -117,20 +117,25 @@ function Navbar() {
         <nav
           className={`transition-all duration-300 ${
             isScrolled
-              ? "glass shadow-lg"
-              : "bg-[var(--card)]"
+              ? "glass shadow-xl border-b border-[var(--glass-border)]"
+              : "bg-[var(--card)]/90 backdrop-blur-md border-b border-[var(--border)]"
           }`}
         >
           <div className="max-w-7xl mx-auto flex items-center justify-between px-6 lg:px-8 py-3 lg:py-4">
             {/* Logo */}
-            <Link to="/" className="flex-shrink-0">
-              <div className="select-none">
-                <h1 className="text-2xl lg:text-3xl font-extrabold tracking-tight text-[var(--text)]">
-                  Beck
-                </h1>
-                <p className="text-[10px] lg:text-xs uppercase tracking-[4px] text-[var(--muted)]">
-                  Instruments
-                </p>
+            <Link to="/" className="flex-shrink-0 group">
+              <div className="select-none flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--accent)] to-[var(--secondary)] text-white font-extrabold text-xl shadow-md shadow-[var(--accent-glow)] transition-transform duration-300 group-hover:scale-105">
+                  B
+                </div>
+                <div>
+                  <h1 className="text-xl lg:text-2xl font-extrabold tracking-tight text-[var(--text)] leading-tight">
+                    Beck<span className="text-[var(--accent)]">.</span>
+                  </h1>
+                  <p className="text-[9px] lg:text-[10px] uppercase tracking-[3px] font-semibold text-[var(--muted)]">
+                    Instruments
+                  </p>
+                </div>
               </div>
             </Link>
 

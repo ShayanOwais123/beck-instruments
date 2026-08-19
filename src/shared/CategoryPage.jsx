@@ -43,9 +43,25 @@ function CategoryPage({
 
       if (
         selectedCategories.length > 0 &&
-        !selectedCategories.some((c) =>
-          product.name.toLowerCase().includes(c.toLowerCase())
-        )
+        !selectedCategories.some((c) => {
+          const lowerC = c.toLowerCase();
+          const cleanC = lowerC.endsWith("s") ? lowerC.slice(0, -1) : lowerC;
+          const haystack = [
+            product.name,
+            product.modelType,
+            product.category,
+            product.shortDescription
+          ].filter(Boolean).map(s => s.toLowerCase());
+          
+          return haystack.some(h => 
+            h.includes(lowerC) || 
+            h.includes(cleanC) ||
+            (cleanC === "nipper" && h.includes("nipper")) ||
+            (cleanC === "tweezer" && h.includes("forcep")) ||
+            (cleanC === "forcep" && h.includes("tweezer")) ||
+            (cleanC === "laboratory forcep" && (h.includes("forcep") || h.includes("tweezer")))
+          );
+        })
       ) {
         return false;
       }

@@ -17,15 +17,15 @@ function TrustedBrands() {
           description="Hospitals, clinics and distributors rely on our precision instruments for quality, durability and performance."
         />
 
-        {/* Logo Slider */}
-        <div className="mt-16 overflow-hidden">
+        {/* Premium Marquee Slider with edge fades */}
+        <div className="mt-14 marquee-container py-4">
           <div className="logo-track">
-            {[...brands, ...brands].map((logo, index) => (
+            {[...brands, ...brands, ...brands].map((logo, index) => (
               <div key={index} className="logo-item">
                 <img
                   src={logo}
-                  alt={`Brand ${index + 1}`}
-                  className="h-14 w-auto object-contain"
+                  alt={`Partner Brand ${(index % brands.length) + 1}`}
+                  className="h-10 lg:h-12 w-auto object-contain"
                 />
               </div>
             ))}

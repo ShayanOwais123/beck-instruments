@@ -40,7 +40,7 @@ function Cart() {
           </div>
           <button
             onClick={clearCart}
-            className="rounded-xl border border-red-200 bg-red-50 px-5 py-3 text-sm font-semibold text-red-600 transition-all hover:bg-red-100 hover:-translate-y-0.5"
+            className="rounded-xl border border-[var(--error)]/20 bg-[var(--error)]/10 px-5 py-3 text-sm font-semibold text-[var(--error)] transition-all hover:bg-[var(--error)]/20 hover:-translate-y-0.5"
           >
             Clear Cart
           </button>
@@ -67,7 +67,7 @@ function Cart() {
                       </div>
                       <button
                         onClick={() => removeFromCart(item.id)}
-                        className="shrink-0 flex h-9 w-9 items-center justify-center rounded-xl border border-[var(--border)] text-[var(--text-secondary)] hover:bg-red-50 hover:text-red-500 transition-all"
+                        className="shrink-0 flex h-9 w-9 items-center justify-center rounded-xl border border-[var(--border)] text-[var(--text-secondary)] hover:bg-[var(--error)]/10 hover:text-[var(--error)] transition-all"
                       >
                         <FiTrash2 size={15} />
                       </button>
@@ -102,11 +102,26 @@ function Cart() {
           <div className="lg:sticky lg:top-28 h-fit">
             <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-8 shadow-sm">
               <h2 className="text-xl font-bold text-[var(--text)]">Order Summary</h2>
+              <div className="mt-6 space-y-3 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-[var(--text-secondary)]">Subtotal ({cartItems.length} items)</span>
+                  <span className="font-semibold text-[var(--text)]">${getCartTotal().toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-[var(--text-secondary)]">Shipping</span>
+                  <span className="font-semibold text-[var(--success)]">Free</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-[var(--text-secondary)]">Estimated Delivery</span>
+                  <span className="font-semibold text-[var(--text)]">5-7 Business Days</span>
+                </div>
+              </div>
               <div className="mt-6 pt-4 border-t border-[var(--border)]">
                 <div className="flex justify-between text-2xl font-bold">
                   <span className="text-[var(--text)]">Total</span>
                   <span className="text-[var(--accent)]">${getCartTotal().toFixed(2)}</span>
                 </div>
+                <p className="mt-1 text-xs text-[var(--muted)]">Excl. VAT / Import Duties</p>
               </div>
               <button className="mt-8 w-full rounded-xl bg-[var(--accent)] px-6 py-4 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl active:scale-95">
                 Proceed to Checkout

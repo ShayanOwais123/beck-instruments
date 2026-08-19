@@ -1,38 +1,44 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { FiBox, FiImage, FiSettings } from "react-icons/fi";
 import heroImage from "../assets/Hero/hero2.png";
 import heroImage1 from "../assets/Hero/hero1.png";
+import Instrument3DViewer from "./Instrument3DViewer";
 
 function Hero() {
+  const [viewMode, setViewMode] = useState("3d"); // "3d" or "photo"
+  const [selectedModel, setSelectedModel] = useState("scalpel"); // "scalpel", "forceps", "scissors"
+
   return (
-    <section className="relative overflow-hidden bg-[var(--bg)] pt-28 lg:pt-32">
-      {/* Background Effects */}
-      <div className="absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-[var(--accent)]/5 blur-[150px]"></div>
-      <div className="absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-[var(--secondary)]/5 blur-[150px]"></div>
+    <section className="relative overflow-hidden bg-[var(--bg)] pt-28 lg:pt-32 pb-6">
+      {/* Background Neon Glow Effects */}
+      <div className="absolute -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-[var(--accent)]/10 blur-[150px] pointer-events-none"></div>
+      <div className="absolute -bottom-40 -right-40 h-[500px] w-[500px] rounded-full bg-[var(--secondary)]/10 blur-[150px] pointer-events-none"></div>
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pb-16 lg:pb-24">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           {/* Left Content */}
           <div className="order-2 lg:order-1 text-center lg:text-left">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--accent)]/20 bg-[var(--accent)]/5 px-5 py-2 text-xs font-semibold tracking-wide text-[var(--accent)] shadow-sm animate-fade-in-up">
-              <span className="flex h-2 w-2 rounded-full bg-[var(--accent)]"></span>
-              Trusted Worldwide Since 1998
+            <div className="inline-flex items-center gap-2 rounded-full border border-[var(--accent)]/30 bg-[var(--accent)]/10 px-5 py-2 text-xs font-semibold tracking-wide text-[var(--accent)] shadow-lg backdrop-blur-md animate-fade-in-up">
+              <span className="flex h-2 w-2 rounded-full bg-[var(--accent)] animate-ping"></span>
+              Web3D Interactive Surgical Showroom
             </div>
 
             {/* Heading */}
             <h1 className="mt-6 text-4xl sm:text-5xl lg:text-[56px] font-extrabold leading-[1.1] tracking-tight text-[var(--text)]">
               Precision
-              <span className="text-[var(--accent)]"> Surgical</span>
+              <span className="text-[var(--accent)] bg-clip-text"> Surgical</span>
+              <br className="hidden sm:inline" />
               Instruments
-              <br />
-              <span className="text-[var(--text)]">Built For</span>
+              <span className="text-[var(--text)]"> Built For</span>
               <span className="text-[var(--accent)]"> Professionals</span>
             </h1>
 
             <p className="mx-auto lg:mx-0 mt-6 max-w-lg text-base leading-relaxed text-[var(--text-secondary)]">
               High-quality surgical, dental and veterinary instruments
-              manufactured with German precision and trusted by hospitals,
-              clinics and distributors across the globe.
+              manufactured with German precision. Experience our immersive, 
+              interactive 3D catalog to inspect instruments up close before ordering.
             </p>
 
             {/* CTA Buttons */}
@@ -41,18 +47,18 @@ function Hero() {
                 to="/products"
                 className="group relative overflow-hidden rounded-xl bg-[var(--accent)] px-8 py-4 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl active:scale-95"
               >
-                <span className="relative z-10">Explore Products</span>
+                <span className="relative z-10">Explore Catalog</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-[var(--accent-dark)] to-[var(--accent)] opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
               </Link>
               <Link
                 to="/contact"
                 className="rounded-xl border border-[var(--border)] bg-[var(--card)] px-8 py-4 text-sm font-semibold text-[var(--text)] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent)] hover:text-[var(--accent)] hover:shadow-xl active:scale-95"
               >
-                Contact Us
+                Request Custom Design
               </Link>
             </div>
 
-            {/* Stats */}
+            {/* Stats Grid */}
             <div className="mt-12 grid grid-cols-3 gap-4 lg:gap-6 max-w-md mx-auto lg:mx-0">
               <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
                 <p className="text-2xl lg:text-3xl font-bold text-[var(--accent)]">25+</p>
@@ -69,37 +75,94 @@ function Hero() {
             </div>
           </div>
 
-          {/* Right Image */}
-          <div className="order-1 lg:order-2 relative flex items-center justify-center">
-            <div className="relative w-full max-w-lg lg:max-w-xl">
-              {/* Main Card */}
-              <div className="relative flex items-center justify-center rounded-[32px] bg-gradient-to-br from-[var(--accent)]/5 via-[var(--card)] to-[var(--bg)] p-2 shadow-xl transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl">
-                <div className="absolute h-[300px] w-[300px] lg:h-[400px] lg:w-[400px] rounded-full bg-[var(--accent)]/10 blur-[100px]"></div>
-                <img
-                  src={heroImage}
-                  alt="Surgical Instruments"
-                  className="relative z-10 h-[300px] sm:h-[350px] lg:h-[420px] w-auto object-contain transition-all duration-700 hover:scale-105"
-                />
+          {/* Right 3D Viewer Card */}
+          <div className="order-1 lg:order-2 relative flex flex-col items-center justify-center w-full">
+            {/* Mode Switcher Tabs */}
+            <div className="mb-4 flex items-center gap-1.5 p-1.5 glass rounded-2xl shadow-lg z-20 relative">
+              <button
+                onClick={() => setViewMode("3d")}
+                className={`flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-bold transition-all duration-300 ${
+                  viewMode === "3d"
+                    ? "bg-[var(--accent)] text-white shadow-md shadow-[var(--accent-glow)] scale-105"
+                    : "text-[var(--text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"
+                }`}
+              >
+                <FiBox size={14} /> Interactive 3D Model
+              </button>
+              <button
+                onClick={() => setViewMode("photo")}
+                className={`flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-bold transition-all duration-300 ${
+                  viewMode === "photo"
+                    ? "bg-[var(--accent)] text-white shadow-md shadow-[var(--accent-glow)] scale-105"
+                    : "text-[var(--text-secondary)] hover:text-[var(--accent)] hover:bg-[var(--accent)]/10"
+                }`}
+              >
+                <FiImage size={14} /> Studio Photo
+              </button>
+            </div>
 
-                {/* Floating Card */}
-                <div className="absolute bottom-6 left-6 right-6 z-20 rounded-2xl border border-white/30 bg-[var(--card)]/80 backdrop-blur-xl px-5 py-4 shadow-xl">
-                  <p className="text-xs uppercase tracking-[2px] font-semibold text-[var(--accent)]">
-                    Certified Manufacturer
-                  </p>
-                  <h3 className="mt-1 text-lg font-bold text-[var(--text)]">
-                    ISO 13485 Certified
-                  </h3>
-                  <p className="mt-1 text-sm text-[var(--text-secondary)]">
-                    Premium German Stainless Steel Instruments
-                  </p>
-                </div>
+            <div className="relative w-full max-w-xl lg:max-w-2xl">
+              {/* Main Card wrapper */}
+              <div className="relative rounded-[32px] border border-[var(--border)] bg-[var(--card)] p-3.5 shadow-2xl transition-all duration-500 hover:shadow-3xl backdrop-blur-xl">
+                <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent)]/10 via-transparent to-[var(--secondary)]/10 rounded-[32px] pointer-events-none"></div>
+
+                {viewMode === "3d" ? (
+                  <div className="relative w-full rounded-2xl overflow-hidden flex flex-col items-center justify-center">
+                    <Instrument3DViewer
+                      modelType={selectedModel}
+                      productName={`${selectedModel.toUpperCase()} - VirtuLab`}
+                      sku="BK-VIRTUAL-3D"
+                      finish="Mirror / Gold Trim"
+                    />
+
+                    {/* Enhanced Model Switcher Selector */}
+                    <div className="absolute top-16 left-3 right-3 sm:left-auto sm:right-4 flex justify-center sm:justify-end gap-1.5 p-1 bg-black/70 backdrop-blur-xl rounded-2xl border border-white/15 z-20 shadow-xl">
+                      {[
+                        { id: "scalpel", label: "Scalpel" },
+                        { id: "forceps", label: "Forceps" },
+                        { id: "scissors", label: "Scissors" },
+                        { id: "tweezers", label: "Tweezers" },
+                      ].map((m) => (
+                        <button
+                          key={m.id}
+                          onClick={() => setSelectedModel(m.id)}
+                          className={`px-3 py-1.5 rounded-xl text-[11px] font-bold tracking-wider uppercase transition-all duration-200 ${
+                            selectedModel === m.id
+                              ? "bg-[var(--accent)] text-white shadow-md shadow-[var(--accent-glow)]"
+                              : "text-slate-300 hover:text-white hover:bg-white/10"
+                          }`}
+                        >
+                          {m.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="relative h-[440px] sm:h-[500px] w-full flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900 via-slate-950 to-black p-6">
+                    <img
+                      src={heroImage}
+                      alt="Surgical Instruments"
+                      className="relative z-10 max-h-[380px] w-auto object-contain transition-all duration-700 hover:scale-105 filter drop-shadow-2xl"
+                    />
+                    
+                    {/* Floating Info Overlay */}
+                    <div className="absolute bottom-4 left-4 right-4 z-20 rounded-2xl border border-white/20 bg-black/60 backdrop-blur-xl px-5 py-4 shadow-xl">
+                      <p className="text-xs uppercase tracking-[2px] font-bold text-[var(--accent)]">
+                        Premium Quality Standard
+                      </p>
+                      <h3 className="mt-1 text-sm font-bold text-white">
+                        CE & ISO 13485 Registered Medical German Stainless Steel
+                      </h3>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Floating Image Indicator */}
-              <div className="absolute -bottom-4 -right-4 lg:-bottom-6 lg:-right-6 z-30 h-20 w-20 lg:h-24 lg:w-24 rounded-2xl border-4 border-[var(--card)] shadow-lg overflow-hidden">
+              <div className="absolute -bottom-4 -right-4 lg:-bottom-6 lg:-right-6 z-30 h-16 w-16 lg:h-20 lg:w-20 rounded-2xl border-4 border-[var(--card)] shadow-xl overflow-hidden transition-all duration-300 hover:scale-110">
                 <img
                   src={heroImage1}
-                  alt="Surgical Instruments"
+                  alt="Surgical Instruments Detail"
                   className="h-full w-full object-cover"
                 />
               </div>

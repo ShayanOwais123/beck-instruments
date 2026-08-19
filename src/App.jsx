@@ -56,8 +56,8 @@ function App() {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/search" element={<SearchResults />} />
                 <Route path="/admin" element={<Admin />} />
+                <Route path="*" element={<NotFound />} />
               </Route>
-              <Route path="*" element={<NotFound />} />
             </Routes>
           </CartProvider>
         </AuthProvider>

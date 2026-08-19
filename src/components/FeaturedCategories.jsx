@@ -4,6 +4,7 @@ import dental from "../assets/Categories/dental.jpg";
 import veterinary from "../assets/Categories/veterinary.jpg";
 import beauty from "../assets/Categories/beauty.jpg";
 import laboratory from "../assets/Categories/laboratory.jpg";
+import allproducts from "../assets/Categories/allproducts.jpg";
 import SectionHeading from "./SectionHeading";
 import AnimatedSection from "./AnimatedSection";
 
@@ -42,7 +43,7 @@ function FeaturedCategories() {
     {
       title: "View All Products",
       description: "Explore our complete catalog of premium instruments.",
-      image: surgical,
+      image: allproducts,
       link: "/products",
     },
   ];
